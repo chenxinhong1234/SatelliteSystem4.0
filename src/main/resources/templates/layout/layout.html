@@ -1,0 +1,133 @@
+<!--本页包含：
+          1.导航栏：每个页面里面做上面的一块公用区域
+          2.分页面的导航栏：menu1和menu2
+          3.页面底端的导航栏：标明了——&copy; 2017 国网江西省电力公司柘林水电厂&amp;华中科技大学 All Rights Reserved
+          -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/application.css}" href="../../static/css/application.css"/>
+
+</head>
+<body>
+
+<!--所有界面的导航栏-->
+<div th:fragment="navbar">
+    <!-- topbar starts ：导航栏-->
+    <nav class="navbar navbar-default" role="navigation"> <!--导航栏的书写格式-->
+        <header class="main-header">
+            <div class="logo-main pull-left">   <!--放在左边的类-->
+                <div class="logo">
+                    <!--<img src="../../static/images/logo.png" style="padding-bottom: 10px"/>   &lt;!&ndash;国网图片&ndash;&gt;-->
+                    <b>&nbsp;&nbsp;可重构空间在轨服务细胞星系统</b>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="pull-right">             <!--放在右边的类-->
+                <div class="btn-group pull-right" style="padding: 15px 15px 0 0">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">  <!--[按键]按下显示的类是dropdown，在后面指得是“注销”-->
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="hidden-sm hidden-xs" style="font-size:16px;font-family: 'Helvetica Neue Light'" th:text="${username}"> 用户名</span>
+                        <!--用户名的位置显示用户登录传过来的名字-->
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/logout}">注销</a></li>   <!--点击“注销”，跳转《logout》页面：http://127.0.0.1:8080/login?logout-->
+                    </ul>
+                </div>
+                <ul class="collapse navbar-collapse nav navbar-nav top-menu  pull-right" style="font-size: 1.33em;padding:15px 15px 0 0">
+                    <li></li>
+                    <li class="dropdown">
+                        <a th:href="@{/satellitequery}"><i class="glyphicon glyphicon-search"></i> 卫星信息查询</a>    <!--点击，跳转 http://127.0.0.1:8080/zvcurve-->
+                    </li><!--空间站信息查询-->
+
+                    <li>&nbsp;</li>
+                    <li class="dropdown">
+                        <a th:href="@{/economic_operation}"><i class="glyphicon glyphicon-cog"></i> 运行监测</a>  <!--点击，跳转 http://127.0.0.1:8080/economic_operation-->
+                    </li>
+
+                    <li>&nbsp;</li>
+                    <li class="dropdown">
+                        <a href="#" onclick="window.open('/images/柘林水电厂经济运行系统操作手册.pdf')"><i class="glyphicon glyphicon-list-alt"></i> 软件操作指南</a>
+                    </li>
+
+                </ul>
+            </div>
+        </header>
+    </nav>
+</div>
+
+
+<!--《电站信息查询》的导航栏-menu1-->
+<div th:fragment="menu1">
+    <!-- left menu starts -->
+    <div class="col-sm-2 col-lg-2">
+        <div class="treeview-heder">系统菜单</div>
+        <div style="padding-left: 12%;padding-right: 12%">
+            <div style="height:30px;border-left:5px double #034D8A;border-right:5px double #034D8A;"></div>
+        </div>
+        <div class="sidebar-nav">
+            <div class="nav-canvas">
+                <ul class="nav nav-pills nav-stacked main-menu">
+                    <li><a th:href="@{/index}"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a>
+                    <li class="nav-header">卫星信息查询</li>
+                    </li>
+                    <li><a class="ajax-link" th:href="@{/satellitequery}"><i
+                            class="glyphicon glyphicon-eye-open"></i><span> 卫星基本信息查询</span></a></li>         <!--这里的ajax-link没搞懂-->
+                    <li><a class="ajax-link" th:href="@{/zvcurve}"><i
+                            class="glyphicon glyphicon-eye-open"></i><span> 水位库容曲线查询</span></a></li>
+                    <li><a class="ajax-link" th:href="@{/zqcurve}"><i
+                            class="glyphicon glyphicon-eye-open"></i><span> 尾水下泄流量曲线查询</span></a></li>
+                    <li><a class="ajax-link" th:href="@{/heocurve}"><i class="glyphicon glyphicon-eye-open"></i><span>预想出力曲线查询</span></a></li>
+                    <li><a class="ajax-link" th:href="@{/nhqcurve}"><i class="glyphicon glyphicon-eye-open"></i><span>NQH曲线查询</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    <!-- left menu ends -->
+</div>
+
+
+<!--《厂内经济运行的》的导航栏-->
+<div th:fragment="menu2">
+    <!-- left menu starts -->
+    <div class="col-sm-2 col-lg-2">
+        <div class="treeview-heder">系统菜单</div>
+        <div style="padding-left: 12%;padding-right: 12%">
+            <div style="height:30px;border-left:5px double #034D8A;border-right:5px double #034D8A;"></div>
+        </div>
+        <div class="sidebar-nav">
+            <div class="nav-canvas">
+                <ul class="nav nav-pills nav-stacked main-menu">
+                    <li><a th:href="@{/index}"><i class="glyphicon glyphicon-home"></i><span> 首页</span></a></li>
+                    <li class="nav-header">厂内经济运行</li>
+                    <li><a class="ajax-link" th:href="@{/economic_operation}"><i
+                            class="glyphicon glyphicon-align-justify"></i><span> 经济运行计算</span></a>
+                    </li>
+                    <li><a class="ajax-link"  th:href="@{/report}"><i
+                            class="glyphicon glyphicon-list-alt"></i><span> 报表</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- left menu ends -->
+</div>
+
+
+<!--页面底端的导航栏：标明了——&copy; 2017 国网江西省电力公司柘林水电厂&amp;华中科技大学 All Rights Reserved-->
+<div th:fragment="footer">
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted text-center">&copy; 2018 哈尔滨工业大学&amp;华中科技大学 All Rights Reserved.</p>
+        </div>
+    </footer>
+</div>
+</body>
+
+
+</html>

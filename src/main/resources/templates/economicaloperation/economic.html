@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>柘林电厂调度管理系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../../static/css/font-awesome.css"/>
+    <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.css}" href="../../static/css/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/scroller.bootstrap.css}" href="../../static/css/scroller.bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datetimepicker.css}"
+          href="../../static/css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-switch.css}" href="../../static/css/bootstrap-switch.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/highcharts.css}" href="../../static/css/highcharts.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-dialog.css}" href="../../static/css/bootstrap-dialog.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/charisma-app.css}" href="../../static/css/charisma-app.css"/>
+    <link rel="stylesheet" th:href="@{/css/application.css}" href="../../static/css/application.css"/>
+
+</head>
+<body>
+
+<div th:replace="layout/layout :: navbar"></div>  <!--插入layout.html中的<navbar> : 所有页面的导航栏-->
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- left menu starts -->
+        <div th:replace="layout/layout :: menu2"></div>  <!--插入layout.html中的<menu2> :《厂内经济运行》的导航栏-->
+        <!-- left menu ends -->
+
+        <!-- content starts -->
+        <div id="content" class="col-sm-10 col-lg-10">
+
+            <!--input starts-->
+            <div class="box">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 输入条件</h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                    class="glyphicon glyphicon-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <div class="wizard" data-initialize="wizard" id="wizard">
+                            <div class="steps-container">
+                                <ul class="steps">
+                                    <li data-step="1" class="active">
+                                        <span class="step">1</span>
+                                        <span class="title">基本条件设置</span>
+                                    </li>
+
+                                    <li data-step="2">
+                                        <span class="step">2</span>
+                                        <span class="title">来水信息设置</span>
+                                    </li>
+
+                                    <li data-step="3">
+                                        <span class="step">3</span>
+                                        <span class="title">机组信息设置</span>
+                                    </li>
+
+                                    <li data-step="4">
+                                        <span class="step">4</span>
+                                        <span class="title">典型负荷设置</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <hr/>
+                            <div class="step-content">
+                                <!--基本条件设置-->
+                                <div class="step-pane active" data-step="1">
+                                    <div class="row">
+                                        <!--第一个框-->
+                                        <div class="col-md-4">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="date">调度日期</label>
+                                                    <div class="col-sm-6 input-group" id='datetimepicker'>
+                                                        <input type='text' class="form-control" id="date"/>
+                                                        <span class="input-group-addon"><span
+                                                                class="glyphicon glyphicon-calendar"></span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="time">调度时段</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control" id="time">
+                                                            <option>15min</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="method">优化方法</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control" id="method">
+                                                            <option>动态规划</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label"
+                                                           for="level">初始水位</label>
+                                                    <div class="col-sm-6 input-group" id='level'>
+                                                        <input type='text' class="form-control" id="initialLevel"/>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--第二个框-->
+                                        <div class="col-md-4 small-bor">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="number">
+                                                        &nbsp;机组台数</label>
+                                                    <div class="col-sm-6 input-group">
+                                                        <input class="form-control" type="text" id="number"
+                                                               th:placeholder="6" disabled="disabled"/>
+                                                        <span class="input-group-addon">台</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="installedCapacity">&nbsp;装机容量</label>
+                                                    <div class="col-sm-6 input-group" id='installedCapacity'>
+                                                        <input type='text' class="form-control" th:placeholder="42" disabled="disabled"/>
+                                                        <span class="input-group-addon">万kW</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="guaranteedOutput">&nbsp;保证出力</label>
+                                                    <div class="col-sm-6 input-group" id='guaranteedOutput'>
+                                                        <input type='text' class="form-control" th:placeholder="5.25" disabled="disabled"/>
+                                                        <span class="input-group-addon">万kW</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--第三个框-->
+                                        <div class="col-md-4 small-bor">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label"
+                                                           for="normalLevel">正常蓄水位</label>
+                                                    <div class="col-sm-6 input-group" id='normalLevel'>
+                                                        <input type='text' class="form-control" th:placeholder="65" disabled="disabled"/>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="floodLevel">汛限水位</label>
+                                                    <div class="col-sm-6 input-group" id='floodLevel'>
+                                                        <input type='text' class="form-control" th:placeholder="64" disabled="disabled"/>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-1"></div>
+                                                    <label class="col-sm-3 control-label" for="deadLevel">死水位</label>
+                                                    <div class="col-sm-6 input-group" id='deadLevel'>
+                                                        <input type='text' class="form-control" th:placeholder="50" disabled="disabled"/>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--来水信息设置-->
+                                <div class="step-pane" data-step="2">
+                                    <div class="form-inline center">
+                                        <label for="averageInflow">平均入库流量</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="averageInflow"
+                                                   aria-describedby="basic-addon"/>
+                                            <span class="input-group-addon">m³/s</span>
+                                        </div>
+                                        <button type="submit" class="btn btn-default" id="averageConfirm">确定</button>
+                                    </div>
+                                    <hr/>
+                                    <!--upload file-->
+                                    <label class="btn btn-primary btn-file"><i
+                                            class="glyphicon glyphicon-list-alt"></i>
+                                        选择文件<input type="file" name="file" id="file-inflow"
+                                                   style="display: none;"/>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div id="inflowChart" style="height: 400px; margin: 0 auto"></div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <table id="inflowTable" class="table table-striped table-bordered"
+                                                   cellspacing="0" width="100%"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--机组信息设置-->
+                                <div class="step-pane" data-step="3">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <table id="repair" class="table table-striped table-bordered"
+                                                   cellspacing="0" width="100%">
+                                                <thead align="center">
+                                                <tr>
+                                                    <th>机组号数</th>
+                                                    <th>#1机组</th>
+                                                    <th>#2机组</th>
+                                                    <th>#3机组</th>
+                                                    <th>#4机组</th>
+                                                    <th>#5机组</th>
+                                                    <th>#6机组</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><h5>是否检修</h5></td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox1" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox2" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox3" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox4" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox5" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="checkbox6" data-on-text="是"
+                                                               data-off-text="否"/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <hr/>
+
+                                            <table id="example" class="table table-striped table-bordered"
+                                                   cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>&nbsp;&nbsp;检修时间</th>
+                                                    <th>&nbsp;#1机组</th>
+                                                    <th>&nbsp;#2机组</th>
+                                                    <th>&nbsp;#3机组</th>
+                                                    <th>&nbsp;#4机组</th>
+                                                    <th>&nbsp;#5机组</th>
+                                                    <th>&nbsp;#6机组</th>
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                                <!--典型负荷设置-->
+                                <div class="step-pane" data-step="4">
+                                    <!--upload file-->
+                                    <label class="btn btn-primary btn-file"><i
+                                            class="glyphicon glyphicon-list-alt"></i>
+                                        选择文件<input type="file" name="file" id="file-output"
+                                                   style="display: none;"/>
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div id="outputChart" style="height: 400px; margin: 0 auto"></div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <table id="outputTable" class="table table-striped table-bordered"
+                                                   cellspacing="0" width="100%"></table>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="wizard-actions">
+                                <button class="btn btn-prev">
+                                    <i class="ace-icon fa fa-arrow-left"></i>
+                                    上一步
+                                </button>
+
+                                <button class="btn btn-success btn-next" data-last="进行计算" id="finished">
+                                    下一步
+                                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--input ends-->
+
+            <!--output starts -->
+            <div class="box">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 计算结果</h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                    class="glyphicon glyphicon-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">电站结果表</a></li>
+                            <li><a data-toggle="tab" href="#menu1">电站结果图</a></li>
+                            <li><a data-toggle="tab" href="#menu2">机组出力</a></li>
+                            <li><a data-toggle="tab" href="#menu3">机组耗流</a></li>
+                            <li><a data-toggle="tab" href="#menu4">耗水率</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <hr/>
+                                <table id="resultTable" class="table table-striped table-bordered"
+                                       cellspacing="0" width="100%"></table>
+                                <hr/>
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <hr/>
+                                <div class="row">
+                                    <div id="levelChart" style="height: 400px; margin: 0 auto"></div>
+                                    <hr/>
+                                    <div id="headChart" style="height: 400px; margin: 0 auto"></div>
+                                    <hr/>
+                                    <div id="flowChart" style="height: 400px; margin: 0 auto"></div>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <hr/>
+                                <div class="row text-center">
+                                    <div class="btn-group" id="unitOutputGroup" data-toggle="buttons">
+                                        <label class="btn btn-success active">
+                                            <input id="radio1" name="r1" type="radio" class="toggle" value="1"/>#1出力
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radio2" name="r1" type="radio" class="toggle" value="2"/>#2出力
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radio3" name="r1" type="radio" class="toggle" value="3"/>#3出力
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radio4" name="r1" type="radio" class="toggle" value="4"/>#4出力
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radio5" name="r1" type="radio" class="toggle" value="5"/>#5出力
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radio6" name="r1" type="radio" class="toggle" value="6"/>#6出力
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div id="unitOutputChart" style="height: 400px; margin: 0 auto"></div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <table id="unitOutputTable" class="table table-striped table-bordered"
+                                               cellspacing="0" width="100%"></table>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div id="menu3" class="tab-pane fade">
+                                <hr/>
+                                <div class="row text-center">
+                                    <div class="btn-group" id="unitOutflowGroup" data-toggle="buttons">
+                                        <label class="btn btn-success active">
+                                            <input id="radii1" name="r1" type="radio" class="toggle" value="1"/>#1耗流量
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radii2" name="r1" type="radio" class="toggle" value="2"/>#2耗流量
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radii3" name="r1" type="radio" class="toggle" value="3"/>#3耗流量
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radii4" name="r1" type="radio" class="toggle" value="4"/>#4耗流量
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radii5" name="r1" type="radio" class="toggle" value="5"/>#5耗流量
+                                        </label>
+                                        <label class="btn btn-success">
+                                            <input id="radii6" name="r1" type="radio" class="toggle" value="6"/>#6耗流量
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div id="unitOutflowChart" style="height: 400px; margin: 0 auto"></div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <table id="unitOutflowTable" class="table table-striped table-bordered"
+                                               cellspacing="0" width="100%"></table>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div id="menu4" class="tab-pane fade">
+                                <hr/>
+                                <div class="row">
+                                    <div id="waterrateChart" style="height: 400px; margin: 0 auto"></div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--output ends-->
+
+
+        </div><!-- content ends -->
+
+    </div><!--/row-->
+
+</div><!--/container-fluid-->
+
+
+<div th:replace="layout/layout :: footer"></div>
+
+<script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+<script th:src="@{/js/bootstrap.js}" src="../../static/js/bootstrap.js"></script>
+<script th:src="@{/js/moment-with-locales.js}" src="../../static/js/moment-with-locales.js"></script>
+<script th:src="@{/js/bootstrap-datetimepicker.js}" src="../../static/js/bootstrap-datetimepicker.js"></script>
+<script th:src="@{/js/bootstrap-switch.js}" src="../../static/js/bootstrap-switch.js"></script>
+
+<script th:src="@{/js/jquery.dataTables.js}" src="../../static/js/jquery.dataTables.js"></script>
+<script th:src="@{/js/dataTables.bootstrap.js}" src="../../static/js/dataTables.bootstrap.js"></script>
+<script th:src="@{/js/dataTables.scroller.js}" src="../../static/js/dataTables.scroller.js"></script>
+
+<script th:src="@{/js/bootstrap-dialog.js}" src="../../static/js/bootstrap-dialog.js"></script>
+<script th:src="@{/js/jquery.cookie.js}" src="../../static/js/jquery.cookie.js"></script>
+<script th:src="@{/js/lodash.js}" src="../../static/js/lodash.js"></script>
+<script th:src="@{/js/wizard.js}" src="../../static/js/wizard.js"></script>
+
+<script th:src="@{/js/highcharts.src.js}" src="../../static/js/highcharts.src.js"></script>
+<script th:src="@{/js/exporting.src.js}" src="../../static/js/exporting.src.js"></script>
+<script th:src="@{/js/myChart.js}" src="../../static/js/myChart.js"></script>
+
+<script th:src="@{/js/xlsx.full.min.js}" src="../../static/js/xlsx.full.min.js"></script>
+
+<script th:src="@{/js/charisma.js}" src="../../static/js/charisma.js"></script>
+<script th:src="@{/js/application.js}" src="../../static/js/application.js"></script>
+
+<!--datetimepicker-->
+<script>
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            locale: 'zh-cn',
+            format: 'YYYY-MM-DD',
+            defaultDate: new Date()
+        });
+
+        $("[id^='checkbox']").bootstrapSwitch();
+    });
+</script>
+
+<!--input-->
+<script>
+    //<![CDATA[
+    $(function () {
+        // 数据
+        var day = new Date($('#date').val());
+        var xData = getTimeArray(day, 96);
+        var yData = [];
+        _.forEach(xData, function () {
+            yData.push(0);
+        });
+        var timeData = [];
+        _.forEach(xData, function (value) {
+            timeData.push(formatDate(new Date(value)));
+        });
+        var tableData = _.zip(timeData, yData);
+
+        /* 入库
+         -------------------------------------------------- */
+        var chartOption1 = {
+            id: "inflowChart",
+            title: "入库流量曲线",
+            xAxis: "时间",
+            yAxis: "流量(m³/s)"
+        };
+        var chart1 = initializeChart(chartOption1);
+        insertChartData(chart1, xData, yData);
+
+        // dataTables
+        $('#inflowTable').dataTable({
+            data: tableData,
+            order: [],
+            searching: false,
+            bInfo: false,
+            columns: [
+                {title: "时间"},
+                {title: "入库流量(m³/s)"}
+            ],
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+            },
+            deferRender: true,
+            scrollY: 400,
+            scrollCollapse: true,
+            scroller: true
+        });
+
+        // 直接输入平均入库流量
+        $("#averageConfirm").click(function() {
+            var averageInflow = $("#averageInflow").val();
+            if (isNaN(averageInflow) || (!isNaN(averageInflow) && (averageInflow < 0))) {
+                BootstrapDialog.alert({
+                    type:'type-danger',
+                    title:'错误提示：',
+                    message:"请输入正确参数范围!"
+                });
+                $("#averageInflow").val(null);
+            } else {
+                var yData = [];
+                _.forEach(xData, function() {
+                    yData.push(parseFloat(averageInflow));
+                });
+                changeChartData(chart1, xData, yData);
+                var newData = _.zip(timeData, yData);
+                $('#inflowTable').dataTable().fnClearTable();
+                $('#inflowTable').dataTable().fnAddData(newData);
+            }
+        });
+
+        $("#file-inflow").change(function (e) {
+            handleFile(e, function (json) {
+                var y = _.map(json, "入库（m³/s）");
+                _.forEach(y, function (value, index) {
+                    yData[index] = parseFloat(value);
+                });
+                changeChartData(chart1, xData, yData);
+                var newData = _.zip(timeData, yData);
+                $('#inflowTable').dataTable().fnClearTable();
+                $('#inflowTable').dataTable().fnAddData(newData);
+            });
+            $("#file-inflow")[0].value = '';
+        });
+
+        /* 机组检修
+         -------------------------------------------------- */
+        var repairData = [];
+        _.forEach(timeData, function (value) {
+            repairData.push([value, 0, 0, 0, 0, 0, 0]);
+        });
+        // dataTables
+        $('#example').dataTable({
+            data: repairData,
+            order: [],
+            searching: false,
+            bInfo: false,
+            "columnDefs": [{
+                "targets": [1, 2, 3, 4, 5, 6],
+                "data": null,
+                "defaultContent": '<label><input type="checkbox"/></label>'
+            }],
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+            },
+            deferRender: true,
+            scrollY: 400,
+            scrollCollapse: true,
+            scroller: true
+        });
+
+        /* 典型负荷
+         -------------------------------------------------- */
+        var chartOption2 = {
+            id: "outputChart",
+            title: "典型负荷曲线",
+            xAxis: "时间",
+            yAxis: "出力(MW)"
+        };
+        var chart2 = initializeChart(chartOption2);
+        insertChartData(chart2, xData, yData);
+
+        // dataTables
+        $('#outputTable').dataTable({
+            data: tableData,
+            order: [],
+            searching: false,
+            bInfo: false,
+            columns: [
+                {title: "时间"},
+                {title: "出力(MW)"}
+            ],
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+            },
+            deferRender: true,
+            scrollY: 400,
+            scrollCollapse: true,
+            scroller: true
+        });
+
+        $("#file-output").change(function (e) {
+            handleFile(e, function (json) {
+                var y = _.map(json, "出力（MW）");
+                _.forEach(y, function (value, index) {
+                    yData[index] = parseFloat(value);
+                });
+                changeChartData(chart2, xData, yData);
+                var newData = _.zip(timeData, yData);
+                $('#outputTable').dataTable().fnClearTable();
+                $('#outputTable').dataTable().fnAddData(newData);
+            });
+            $("#file-output")[0].value = '';
+        });
+
+    });
+    //]]>
+</script>
+
+
+<!--wizard-->
+<script>
+    //<![CDATA[
+    $('#wizard')
+    // Call the wizard plugin
+        .wizard()
+        .on('actionclicked.fu.wizard', function(event) {
+
+            var initialLevel = $("#initialLevel").val();
+            if (isNaN(initialLevel) || (!isNaN(initialLevel) && (initialLevel < 50 || initialLevel > 65))) {
+                event.preventDefault();
+                BootstrapDialog.alert({
+                    type:'type-danger',
+                    title:'错误提示：',
+                    message:"请输入正确参数范围! (介于死水位与正常蓄水位之间）"
+                });
+                $("#initialLevel").val(null);
+            }
+        })
+
+        // Triggered when clicking the Complete button
+        .on('finished.fu.wizard', function () {
+
+            BootstrapDialog.show({
+                title: '计算',
+                message: '输入条件完成，是否开始计算?',
+                buttons: [{
+                    icon: 'glyphicon glyphicon-send',
+                    label: '计算',
+                    cssClass: 'btn-primary',
+                    autospin: true,
+                    action: function (dialogRef) {
+                        dialogRef.enableButtons(false);
+                        dialogRef.setClosable(false);
+                        dialogRef.getModalBody().html('正在计算，请稍后...');
+
+                        // 获取输入条件
+                        var input = {};
+                        input.date = $('#date').val();
+                        input.initialLevel = $("#initialLevel").val();
+                        var inflowChartData = $("#inflowChart").highcharts().series[0].data;
+                        input.inflow = _.map(inflowChartData, "y");
+                        var outputChartData = $("#outputChart").highcharts().series[0].data;
+                        input.output = _.map(outputChartData, "y");
+                        input.schedule = [];
+                        var temp = _.map($("[id^='checkbox']"), "checked");
+                        _.forEach(temp, function (value) {
+                            input.schedule.push(+value);
+                        });
+
+
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json",
+                            url: "/data/economic_operation",
+                            data: JSON.stringify(input),
+                            dataType: 'json',
+                            timeout: 100000,
+                            success: function (result) {
+                                // 时间
+                                var day = new Date($('#date').val());
+                                var length = result.length;
+                                var timeArray = getTimeArray(day, length);
+                                var timeData = [];
+                                _.forEach(timeArray, function (value) {
+                                    timeData.push(formatDate(new Date(value)));
+                                });
+                                // 机组数据
+                                var output = arraytoFixed(_.map(result, 'n'), 1);
+                                var outputUnzip = _.unzip(output);
+                                var outflow = arraytoFixed(_.map(result, 'q'), 1);
+                                var outflowUnzip = _.unzip(outflow);
+                                var finalLevel = arraytoFixed(_.map(result, 'finalLevel'), 3);
+                                var head = arraytoFixed(_.map(result, 'head'), 3);
+                                var fitness = [];
+                                _.forEach(outflow, function (value) {
+                                    fitness.push(_.sum(value));
+                                });
+                                fitness = arraytoFixed(fitness, 1);
+                                var aflow = arraytoFixed(_.map(result, 'aflow'), 1);
+
+                                // 表
+                                var tableData = _.zip(timeData, input.output, finalLevel, head, input.inflow, fitness,
+                                    aflow);
+                                // dataTables
+                                $('#resultTable').dataTable({
+                                    bDestroy: true,
+                                    data: tableData,
+                                    order: [],
+                                    searching: false,
+                                    bInfo: false,
+                                    columns: [
+                                        {title: "时间"},
+                                        {title: "出力(MW)"},
+                                        {title: "末水位(m)"},
+                                        {title: "水头(m)"},
+                                        {title: "入库流量(m³/s)"},
+                                        {title: "发电流量(m³/s)"},
+                                        {title: "弃水(m³/s)"}
+                                    ],
+                                    "language": {
+                                        "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+                                    },
+                                    deferRender: true,
+                                    scrollY: 600,
+                                    scrollCollapse: true,
+                                    scroller: true
+                                });
+
+
+                                // 图
+                                var levelChartOption = {
+                                    id: "levelChart",
+                                    title: "水位过程",
+                                    xAxis: "时间",
+                                    yAxis: "末水位(m)"
+                                };
+                                var levelChart = initializeChart(levelChartOption);
+                                insertChartData(levelChart, timeArray, finalLevel);
+
+                                var headChartOption = {
+                                    id: "headChart",
+                                    title: "水头过程",
+                                    xAxis: "时间",
+                                    yAxis: "水头(m)"
+                                };
+                                var headChart = initializeChart(headChartOption);
+                                insertChartData(headChart, timeArray, head);
+
+                                var flowChartOption = {
+                                    id: "flowChart",
+                                    title: "出库过程",
+                                    xAxis: "时间",
+                                    yAxis: "出库流量(m³/s)"
+                                };
+                                var flowChart = initializeChart(flowChartOption);
+                                insertChartData(flowChart, timeArray, fitness);
+
+                                /* 机组出力
+                                 -------------------------------------------------- */
+                                var unitOutputOption = {
+                                    id: "unitOutputChart",
+                                    title: "机组出力",
+                                    xAxis: "时间",
+                                    yAxis: "出力(MW)"
+                                };
+                                var x = $('#unitOutputGroup').find('label.active input').val();
+                                var unitOutputChart = initializeChart(unitOutputOption);
+                                insertChartData(unitOutputChart, timeArray, outputUnzip[x - 1]);
+                                var unitOutputData = _.zip(timeData, outputUnzip[x - 1]);
+                                // dataTables
+                                $('#unitOutputTable').dataTable({
+                                    bDestroy: true,
+                                    data: unitOutputData,
+                                    order: [],
+                                    searching: false,
+                                    bInfo: false,
+                                    columns: [
+                                        {title: "时间"},
+                                        {title: "机组出力(MW)"}
+                                    ],
+                                    "language": {
+                                        "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+                                    },
+                                    deferRender: true,
+                                    scrollY: 400,
+                                    scrollCollapse: true,
+                                    scroller: true
+                                });
+
+
+                                $('input:radio[id^="radio"]').change(function () {
+                                    unitOutputChart = $("#unitOutputChart").highcharts();
+                                    var index = $('#unitOutputGroup').find('label.active input').val();
+                                    changeChartData(unitOutputChart, timeArray, outputUnzip[index - 1]);
+                                    var newUnitOutputData = _.zip(timeData, outputUnzip[index - 1]);
+                                    $('#unitOutputTable').dataTable().fnClearTable();
+                                    $('#unitOutputTable').dataTable().fnAddData(newUnitOutputData);
+                                });
+
+
+                                /* 机组耗流
+                                 -------------------------------------------------- */
+                                var unitOutflowOption = {
+                                    id: "unitOutflowChart",
+                                    title: "机组耗流量",
+                                    xAxis: "时间",
+                                    yAxis: "流量(m³/s)"
+                                };
+                                var y = $('#unitOutflowGroup').find('label.active input').val();
+                                var unitOutflowChart = initializeChart(unitOutflowOption);
+                                insertChartData(unitOutflowChart, timeArray, outflowUnzip[y - 1]);
+                                var unitOutflowData = _.zip(timeData, outflowUnzip[y - 1]);
+                                // dataTables
+                                $('#unitOutflowTable').dataTable({
+                                    bDestroy: true,
+                                    data: unitOutflowData,
+                                    order: [],
+                                    searching: false,
+                                    bInfo: false,
+                                    columns: [
+                                        {title: "时间"},
+                                        {title: "机组流量(m³/s)"}
+                                    ],
+                                    "language": {
+                                        "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+                                    },
+                                    deferRender: true,
+                                    scrollY: 400,
+                                    scrollCollapse: true,
+                                    scroller: true
+                                });
+
+                                $('input:radio[id^="radii"]').change(function () {
+                                    unitOutflowChart = $("#unitOutflowChart").highcharts();
+                                    var index = $('#unitOutflowGroup').find('label.active input').val();
+                                    changeChartData(unitOutflowChart, timeArray, outflowUnzip[index - 1]);
+                                    var newUnitOutflowData = _.zip(timeData, outflowUnzip[index - 1]);
+                                    $('#unitOutflowTable').dataTable().fnClearTable();
+                                    $('#unitOutflowTable').dataTable().fnAddData(newUnitOutflowData);
+                                });
+
+                                // 耗水率
+                                var waterRate = [];
+                                var sumQ = [];
+                                var sumN = [];
+                                _.forEach(outflowUnzip, function (value) {
+                                    sumQ.push(_.sum(value));
+                                });
+                                _.forEach(outputUnzip, function (value) {
+                                    sumN.push(_.sum(value));
+                                });
+                                _.forEach(sumQ, function (value, index) {
+                                    waterRate.push(value * 3.6 / sumN[index]);
+                                });
+                                waterRate = arraytoFixed(waterRate, 3);
+                                Highcharts.chart('waterrateChart', {
+                                    chart: {
+                                        type: 'column'
+                                    },
+                                    title: {
+                                        text: '机组耗水率'
+                                    },
+                                    xAxis: {
+                                        categories: ['#1', '#2', '#3', '#4', '#5', '#6']
+                                    },
+                                    yAxis: {
+                                        title: {
+                                            text: '耗水率(m³/kWh)'
+                                        }
+                                    },
+                                    legend: {
+                                        enabled: false
+                                    },
+                                    series: [{
+                                        name: '耗水率',
+                                        data: waterRate
+                                    }]
+                                });
+
+                                dialogRef.close();
+                            },
+                            error: function () {
+                                dialogRef.close();
+                                BootstrapDialog.alert({
+                                    type: 'type-danger',
+                                    title: '错误提示：',
+                                    message: "计算发生错误，请检查输入条件！"
+                                });
+                            }
+                        });
+                    }
+                }, {
+                    label: '取消',
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
+                }]
+            });
+        });
+    //]]>
+</script>
+
+</body>
+</html>

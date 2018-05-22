@@ -1,0 +1,117 @@
+<!--网址：http://127.0.0.1:8080/login  登录页面-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>可重构空间在轨服务细胞星系统</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.css"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}" href="../static/css/login.css"/>
+</head>
+<body>
+
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>可重构空间在轨服务细胞星系统</strong></h1>
+                </div>
+            </div>
+            <br/>
+            <!-- Central form -->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h2 style="font-family: 楷体;">用户登录</h2>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>  <!--钥匙图案-->
+                        </div>
+                    </div>
+
+                     <!--下面整个类是"form-bottom"，login.css中有-->
+                    <div class="form-bottom">
+                        <!--如果是从通过注销返回到《登录》页面，则显示“您已注销，请重新登录！”，
+                        返回页面：http://127.0.0.1:8080/login?logout-->
+                        <p th:if="${param.logout}" class="alert alert-danger" >您已注销，请重新登录！</p>
+                        <!--如果输入密码错误，则返回《登录》页面，显示“密码错误，请重新输入!”
+                        返回地址：http://127.0.0.1:8080/login?error-->
+                        <p th:if="${param.error}" class="alert alert-danger">密码错误，请重新输入!</p>
+
+                        <form name="form" th:action="@{/login}" method="post" class="login-form">  <!--在这里映射@{/login}，映射到NavigationController类中，这个类中的方法给与映射后的结果-->
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Username</label>
+                                <input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username"/>
+                                <!--从这里获得了“用户名”然后用在了其他页面显示上-->
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password"/>
+                            </div>
+                            <div class="row2">
+                                <div class="col-md-8 myTest"><input type="checkbox" name="remember-me" id="remember"/> 记住密码</div>
+                                <div class="col-md-4 myTest"><button type="submit" class="btn">登 &nbsp; 录</button></div>
+                            </div>
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <!-- Bottom content -->
+            <div class="col-sm-7 col-sm-offset-2 Bottom-content">
+                <a>© 2018 哈尔滨工业大学&amp;华中科技大学 All Rights Reserved.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+<script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+<script th:src="@{/js/jquery.backstretch.js}" src="../static/js/jquery.backstretch.js"></script>
+<script>
+    $(function() {
+
+        /*
+         全屏背景图片，使用backstretch方法
+         */
+        $.backstretch("/images/background.jpg");/*背景图片*/
+
+        /*
+         Form validation  表单验证类
+         login-form 是表单的类
+         */
+        $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {
+            $(this).removeClass('input-error');
+            /*$(selector).removeClass(class):从被选元素移除一个或多个类   （input-error这个类在css里面)*/
+        });
+
+         /*表单提交操作*/
+        $('.login-form').on('submit', function(e) {     /*这里的e是event，指事件*/
+
+            $(this).find('input[type="text"], input[type="password"], textarea').each(function(){
+                if( $(this).val() == "" ) {
+                    e.preventDefault();      /*event.preventDefault()： 取消事件的默认动作,这里指阻止submit，表单的提交*/
+                    $(this).addClass('input-error');
+                    /*如果提交表单为空，则为login-form这个类加上input-error的css的属性，即表单框变为红色*/
+                }
+                else {
+                    $(this).removeClass('input-error');
+                }
+            });
+        });
+
+
+    });
+
+</script>
+</body>
+</html>

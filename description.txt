@@ -1,0 +1,47 @@
+﻿1.前端的页面通过后台的controller文件里的NavigationController类，来控制页面超链接的对应映射
+  通过其中的@RequestMapping("")来映射。
+ 结构：
+   @Controller
+   public class NavigationController {
+
+   @RequestMapping("/zvcurve")
+       public String zvCurve() {
+           return "data/data";
+       }
+   }
+
+2.关于总导航栏《navbar》右上角的“用户名”的获取与显示问题：
+    在NavigationController类中构造了一个getusername一个类，用来获取《登录》页面上输入的用户名，
+  并将这个提交到"${username}"显示出来
+
+3.关于水位库容曲线和数据的显示，在页面《水位库容曲线查询》中显示
+    data.html——映射到ZvController中的zv方法中（"/zv"）： return zhelin.getLevelCapacityCurve().getData();
+    其中zhelin的Bean在 类HydroStationService 中生成
+    —— HydroStation 水电站类 ：提出属性levelCapacityCurve
+    —— LevelCapacityCurve 水位库容曲线类：（属性levelCapacityCurve属于这个类）
+         定义了，水位level，库容capacity属性，和data属性
+    ——HydroStationService 水电站服务类：
+          station.setLevelCapacityCurve(new LevelCapacityCurve(zvRepository.findByStationId(stationId)));
+       其中zvRepository ：是和数据库连接相关的类，= 接口。
+       其中findByStationId的方法就相当于一条SQL语句，Spring Data JPA给你封装好了，不用自己写，只定义接口就行
+    ——zvRepository  接口定义类：和数据库连接，接口另一端连接<ZvEntity, Integer>，给定水电站的Integer ID，
+                                   就可以连接ZvEntity类了。
+    ——ZvEntity  zv曲线（水位库容曲线）的实体类
+
+    ZvEntity 的结构：
+     一、声明实体
+        @Entity
+          对实体注释。任何Hibernate映射对象都要有这个注释
+        @Table
+          声明此对象映射到数据库的数据表，通过它可以为实体指定表(talbe),目录(Catalog)和schema的名字。该注释不是必须的，如果没有则系统使用默认值(实体的短类名)。
+        @Version
+          该注释可用于在实体Bean中添加乐观锁支持。
+     二、声明主键
+        @Id
+           声明此属性为主键。该属性值可以通过应该自身创建，但是Hibernate推荐通过Hibernate生成
+     三、声明普通属性
+        @Column
+           声明该属性与数据库字段的映射关系。
+
+4.前端所有页面到后端的映射，都在类NavigationController中，
+       这个类中的 @RequestMapping("/login")等，定义了前端超链接或映射到哪个页面

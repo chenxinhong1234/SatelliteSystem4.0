@@ -1,0 +1,34 @@
+{
+  "name": "reservoir-dispatch-system",
+  "description": "Spring Boot project for Zhelin",
+  "main": "",
+  "authors": [
+    "Xinwen Gao"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/resources/static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7",
+    "highcharts": "^5.0.6",
+    "moment": "^2.17.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "components-font-awesome": "^4.7.0",
+    "bootstrap3-dialog": "^1.35.3",
+    "lodash": "^4.17.4",
+    "datatables": "^1.10.13",
+    "datatables.net-scroller": "^1.4.2",
+    "datatables.net-scroller-bs": "^1.4.2",
+    "chosen": "^1.6.2",
+    "js-xlsx": "^0.9.7"
+  }
+}

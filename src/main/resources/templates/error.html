@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>柘林电厂调度管理系统</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css"/>
+
+	<link rel="stylesheet" th:href="@{/css/charisma-app.css}" href="../static/css/charisma-app.css"/>
+	<link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css"/>
+
+</head>
+<body>
+
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="text-align: center;padding-top: 10%">
+		<h4>非常抱歉，您所访问的页面不存在！</h4>
+	</div>
+	<div class="col-sm-4">
+		<div class="container-fluid">
+			<ul class="nav nav-pills nav-stacked main-menu" style="float: left;padding-top: 100px">
+				<li><a class="btn btn-primary" th:href="@{/index}"><i class="glyphicon glyphicon-home"></i><span> 返回首页</span></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+<script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+<script th:src="@{/js/moment-with-locales.js}" src="../static/js/moment-with-locales.js"></script>
+<script th:src="@{/js/bootstrap-datetimepicker.js}" src="../static/js/bootstrap-datetimepicker.js"></script>
+
+<script th:src="@{/js/jquery.dataTables.js}" src="../static/js/jquery.dataTables.js"></script>
+<script th:src="@{/js/dataTables.bootstrap.js}" src="../static/js/dataTables.bootstrap.js"></script>
+<script th:src="@{/js/dataTables.scroller.js}" src="../static/js/dataTables.scroller.js"></script>
+
+<script th:src="@{/js/jquery.cookie.js}" src="../static/js/jquery.cookie.js"></script>
+
+<script th:src="@{/js/highcharts.src.js}" src="../static/js/highcharts.src.js"></script>
+<script th:src="@{/js/exporting.src.js}" src="../static/js/exporting.src.js"></script>
+<script th:src="@{/js/lodash.js}" src="../static/js/lodash.js"></script>
+<script th:src="@{/js/charisma.js}" src="../static/js/charisma.js"></script>
+<script th:src="@{/js/jquery.backstretch.js}" src="../static/js/jquery.backstretch.js"></script>
+<script th:src="@{/js/application.js}" src="../../static/js/application.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            locale: 'zh-cn',
+            format: 'LL'
+        });
+        $("#dialog").submit(function () {
+            alert("haha");
+            waitingDialog.show('computing, please wait...');
+            setTimeout(function () {
+                waitingDialog.hide();
+            }, 5000);
+        });
+    });
+</script>
+
+<!--upload file-->
+<script>
+    $(function () {
+        $("#upload-form").submit(function (event) {
+            event.preventDefault();
+            var formData = new FormData($("#upload-form")[0]);
+            $.ajax({
+                url: '/data/upload',
+                type: "POST",
+                data: formData,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success:  function(data) {
+                    Highcharts.setOptions({
+                        global: {
+                            useUTC: false
+                        }
+                    });
+
+                    var options =  {
+                        chart: {
+                            renderTo: 'outputChart',
+                            type: 'spline',
+                            animation: Highcharts.svg, // don't animate in old IE
+                            marginRight: 10
+                        },
+                        title: {
+                            text: 'Live random data'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            //Sets tickInterval to 24 * 3600 * 1000 if display is by day
+                            tickInterval: 1.5 * 3600 * 1000,
+                            dateTimeLabelFormats : {
+                                day: '%H:%M'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Value'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function () {
+                                return '<b>' + this.series.name + '</b><br/>' +
+                                    Highcharts.dateFormat('%H:%M', this.x) + '<br/>' +
+                                    Highcharts.numberFormat(this.y, 2);
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled: false
+                        },
+                        series: [{}]
+                    };
+
+
+                    var processed_json = [];
+
+                    _.forEach(data, function (value) {
+                        processed_json.push([value.time, value.output]);
+                    });
+
+                    options.series[0].data = processed_json;
+                    var chart = new Highcharts.Chart(options);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $("#economic_operation").submit(function (event) {
+        event.preventDefault();
+        waitingDialog.show('computing, please wait...');
+        setTimeout(function () {
+            waitingDialog.hide();
+        }, 3000);
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/data/economic_operation",
+            dataType: 'json',
+            timeout: 100000,
+            success: function (data) {
+                console.log("SUCCESS: ", data);
+            }
+        });
+    });
+    //    侧栏点击高亮文本
+    //    $(document).ready(function () {
+    //        $('.sidebar-nav li').click(function (e) {
+    //            e.preventDefault();
+    //            $('.sidebar-nav li').removeClass('active');
+    //            $(this).addClass('active');
+    //        });
+    //    });
+
+</script>
+
+<script>
+    $(function() {
+
+		/*
+		 Fullscreen background
+		 */
+        $.backstretch("/images/5.jpg")
+    });
+
+</script>
+
+</body>
+</html>
