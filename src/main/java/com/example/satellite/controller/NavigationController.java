@@ -45,6 +45,7 @@ public class NavigationController {
     /*《登录》页面的【登录】按钮提交的地址是"/login"，进行登录的判断，
        如果登录了的话，直接重定向到index页面，否则转到Login页面
      */
+
     @RequestMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
