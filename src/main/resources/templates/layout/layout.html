@@ -22,7 +22,7 @@
         <header class="main-header">
             <div class="logo-main pull-left">   <!--放在左边的类-->
                 <div class="logo">
-                    <!--<img src="../../static/images/logo.png" style="padding-bottom: 10px"/>   &lt;!&ndash;国网图片&ndash;&gt;-->
+                    <img src="../../static/images/SystemIcons.png" style="padding-bottom: 10px"/>   <!--国网图片-->
                     <b>&nbsp;&nbsp;可重构空间在轨服务细胞星系统</b>&nbsp;&nbsp;&nbsp;
                 </div>
             </div>
@@ -41,12 +41,12 @@
                 <ul class="collapse navbar-collapse nav navbar-nav top-menu  pull-right" style="font-size: 1.33em;padding:15px 15px 0 0">
                     <li></li>
                     <li class="dropdown">
-                        <a th:href="@{/satellitequery}"><i class="glyphicon glyphicon-search"></i> 卫星信息查询</a>    <!--点击，跳转 http://127.0.0.1:8080/zvcurve-->
+                        <a th:href="@{/satellitequery}"><i class="glyphicon glyphicon-search"></i> 卫星信息查询</a>
                     </li><!--空间站信息查询-->
 
                     <li>&nbsp;</li>
                     <li class="dropdown">
-                        <a th:href="@{/economic_operation}"><i class="glyphicon glyphicon-cog"></i> 运行监测</a>  <!--点击，跳转 http://127.0.0.1:8080/economic_operation-->
+                        <a th:href="@{/economic_operation}"><i class="glyphicon glyphicon-cog"></i> 在轨服务</a>
                     </li>
 
                     <li>&nbsp;</li>
@@ -76,13 +76,16 @@
                     <li class="nav-header">卫星信息查询</li>
                     </li>
                     <li><a class="ajax-link" th:href="@{/satellitequery}"><i
-                            class="glyphicon glyphicon-eye-open"></i><span> 卫星基本信息查询</span></a></li>         <!--这里的ajax-link没搞懂-->
-                    <li><a class="ajax-link" th:href="@{/zvcurve}"><i
-                            class="glyphicon glyphicon-eye-open"></i><span> 水位库容曲线查询</span></a></li>
-                    <li><a class="ajax-link" th:href="@{/zqcurve}"><i
-                            class="glyphicon glyphicon-eye-open"></i><span> 尾水下泄流量曲线查询</span></a></li>
-                    <li><a class="ajax-link" th:href="@{/heocurve}"><i class="glyphicon glyphicon-eye-open"></i><span>预想出力曲线查询</span></a></li>
-                    <li><a class="ajax-link" th:href="@{/nhqcurve}"><i class="glyphicon glyphicon-eye-open"></i><span>NQH曲线查询</span></a></li>
+                            class="glyphicon glyphicon-eye-open"></i><span><strong style="color: #0000FF"> 卫星总系统</strong></span></a></li>         <!--这里的ajax-link没搞懂-->
+                    <li><a class="ajax-link" th:href="@{/thruster}"><i
+                            class="glyphicon glyphicon-plane"></i><span> 推进细胞星</span></a></li>  <!-- 水位库容曲线查询-->
+                    <li><a class="ajax-link" th:href="@{/communication}"><i
+                            class="glyphicon glyphicon-eye-open"></i><span> 通信细胞星</span></a></li> <!--尾水下泄流量曲线查询-->
+                    <li><a class="ajax-link" th:href="@{/camera}"><i class="glyphicon glyphicon-eye-open"></i><span> 相机细胞星</span></a></li><!--预想出力曲线查询-->
+                    <li><a class="ajax-link" th:href="@{/location}"><i class="glyphicon glyphicon-eye-open"></i><span> 定位细胞星</span></a></li><!--NQH曲线查询-->
+                    <li><a class="ajax-link" th:href="@{/energy}"><i class="glyphicon glyphicon-eye-open"></i><span> 能量细胞星</span></a></li>
+                    <li><a class="ajax-link" th:href="@{/girder}"><i class="glyphicon glyphicon-eye-open"></i><span> 桁架细胞星</span></a></li>
+                    <li><a class="ajax-link" th:href="@{/extend}"><i class="glyphicon glyphicon-eye-open"></i><span> 扩展细胞星</span></a></li>
                 </ul>
             </div>
         </div>

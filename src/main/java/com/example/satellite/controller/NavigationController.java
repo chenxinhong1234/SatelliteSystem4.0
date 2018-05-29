@@ -1,7 +1,6 @@
 package com.example.satellite.controller;
 
-import com.example.satellite.domain.Report;
-import com.example.satellite.service.ReportService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,8 +29,7 @@ import java.util.List;
 @Controller
 public class NavigationController {
 
-    @Autowired
-    private ReportService reportService;
+
 
     //获取登录的用户名  （用于显示在所有的页面导航栏的右上角上，显示用户的姓名）
     public void getUsername(ModelMap model){
@@ -65,35 +63,52 @@ public class NavigationController {
         return "index";    /*返回《欢迎登录》页面*/
     }
 
-    /*《电站信息查询》的五个子页面的跳转*/
+    /*《卫星信息查询》的七个子页面的跳转*/
     @RequestMapping("/satellitequery")
     public String zvCurve(ModelMap model) {
         getUsername(model);  /*运行这个方法来获取“用户名”来显示在页面上*/
         return "data/SatelliteQuery";
     }
 
-    @RequestMapping("/zqcurve")
+    @RequestMapping("/thruster")
     public String zqCurve(ModelMap model) {
         getUsername(model);
-        return "data/zqcurve";
+        return "data/thruster";
     }
 
-
-    @RequestMapping("/nhqcurve")
+    @RequestMapping("/communication")
     public String nhqCurve(ModelMap model) {
         getUsername(model);
-        return "data/nhqcurve";
+        return "data/communication";
     }
-    @RequestMapping("/info")
+    @RequestMapping("/camera")
     public String info(ModelMap model) {
         getUsername(model);
-        return "data/info";
+        return "data/camera";
     }
 
-    @RequestMapping("/heocurve")
+    @RequestMapping("/location")
+    public String location(ModelMap model) {
+        getUsername(model);
+        return "data/location";
+    }
+
+    @RequestMapping("/energy")
     public String heoCurve(ModelMap model) {
         getUsername(model);
-        return "data/heocurve";
+        return "data/energy";
+    }
+
+    @RequestMapping("/girder")
+    public String girder(ModelMap model) {
+        getUsername(model);
+        return "data/girder";
+    }
+
+    @RequestMapping("/extend")
+    public String extend(ModelMap model) {
+        getUsername(model);
+        return "data/extend";
     }
 
     /*《厂内经济运行》两个子页面的跳转*/
@@ -117,47 +132,4 @@ public class NavigationController {
         return "index";
     }
 
-    @PostMapping("/report")
-    public String reportSearch(@ModelAttribute DateCriteria dateCriteria, RedirectAttributes redirectAttributes) throws
-            ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = df.parse(dateCriteria.getStart());
-        Date endDate = df.parse(dateCriteria.getEnd());
-        System.out.println(startDate);
-        System.out.println(endDate);
-        // 结束日期加1天
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(endDate);
-        calendar.add(Calendar.DATE, 1);
-        endDate = calendar.getTime();
-        List<Report> reportList = reportService.getReportFromDate(startDate, endDate);
-        System.out.println(reportList);
-        redirectAttributes.addFlashAttribute("reportList", reportList);
-        return "redirect:/report";
-    }
-
-    @RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
-    public void reportDownload(@PathVariable("id") Integer id,  HttpServletResponse response) {
-        try {
-            Report report = reportService.getReport(id);
-            byte[] bytes = report.getFile();
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-
-            System.out.println(report.getName());
-
-            String fileName = report.getName();
-            fileName = URLEncoder.encode(fileName,"UTF-8");
-
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-            // copy it to response's OutputStream
-            org.apache.commons.io.IOUtils.copy(bis, response.getOutputStream());
-            bis.close();
-            response.flushBuffer();
-        } catch (IOException ex) {
-            throw new RuntimeException("IOError writing file to output stream");
-        }
-
-    }
 }

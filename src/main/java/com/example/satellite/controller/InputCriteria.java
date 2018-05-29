@@ -1,4 +1,4 @@
-package com.rds.controller;
+package com.example.satellite.controller;
 
 import java.util.Date;
 
