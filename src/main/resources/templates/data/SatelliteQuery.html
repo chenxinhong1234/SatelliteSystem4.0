@@ -68,9 +68,9 @@
                     </div>
                     <div class="box-content">
                         <div class="wizard" data-initialize="wizard" id="wizard">
-                            <div class="container" style="width: 100%">
+                            <!--<div class="container" style="width: 100%">
                                 <label >机组基本信息</label>
-                            </div>
+                            </div>-->
 
                             <div class="container" style="width: 100%;">
                                 <table id="example" class="table table-striped table-bordered"
@@ -186,7 +186,9 @@
                                 <h3 align="center">基带处理单元原理框图</h3>
                                 <p align="center"><img src="static/images/SonSystem/shuchuan2.jpg" style="width: 70%;height: 40%"/></p>
                                 <hr/>
+
                             </div>
+
 
                         </div>
                     </div>
@@ -195,12 +197,16 @@
             </div><!--output ends-->
 
 
+
         </div><!-- content ends -->
         <!-- content starts -->
 
     </div><!--/row-->
 
 </div><!--/container-fluid-->
+<br/>
+<br/>
+<br/>
 
 
 <div th:replace="layout/layout :: footer"></div>
@@ -229,18 +235,20 @@
 <script src="static/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    data=[["HLD786","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"] ];
+    data=[["Eccentricity",0],
+        ["Height above equator","35786km"],
+        ["Period","23 hours, 56 minutes,4second"],
+        ["Inclination",0],
+        ["Data transmission rate","3Mbit/s"],
+        ["Angular velocity","7.272rad/s"],
+        ["Velocity","3.1km/h"]
+    ];
     // dataTables
     $('#example').dataTable({
         data: data,
         columns: [
-            {title: "卫星类型"},
-            {title: "卫星功能"}
+            {title: "Oribt parameter"},
+            {title: "Value"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
