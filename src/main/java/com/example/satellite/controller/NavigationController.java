@@ -87,12 +87,6 @@ public class NavigationController {
         return "data/camera";
     }
 
-    @RequestMapping("/location")
-    public String location(ModelMap model) {
-        getUsername(model);
-        return "data/location";
-    }
-
     @RequestMapping("/energy")
     public String heoCurve(ModelMap model) {
         getUsername(model);
