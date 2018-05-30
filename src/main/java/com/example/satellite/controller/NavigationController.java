@@ -113,9 +113,15 @@ public class NavigationController {
 
     /*《厂内经济运行》两个子页面的跳转*/
     @GetMapping("/OrbitService")
-    public String economic(ModelMap model) {
+    public String orbitservice(ModelMap model) {
         getUsername(model);
         return "OrbitService/Visual_Inspection";
+    }
+
+    @GetMapping("/asses")
+    public String asses(ModelMap model) {
+        getUsername(model);
+        return "OrbitService/asses";
     }
 
     @GetMapping("/report")
