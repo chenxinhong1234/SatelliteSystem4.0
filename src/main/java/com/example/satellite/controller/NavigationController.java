@@ -105,7 +105,7 @@ public class NavigationController {
         return "data/extend";
     }
 
-    /*《厂内经济运行》两个子页面的跳转*/
+    /*《在轨服务》子页面的跳转*/
     @GetMapping("/OrbitService")
     public String orbitservice(ModelMap model) {
         getUsername(model);
@@ -116,6 +116,12 @@ public class NavigationController {
     public String asses(ModelMap model) {
         getUsername(model);
         return "OrbitService/asses";
+    }
+
+    @GetMapping("/SpaceJunk")
+    public String spacejunk(ModelMap model) {
+        getUsername(model);
+        return "OrbitService/SpaceJunk";
     }
 
     @GetMapping("/report")
