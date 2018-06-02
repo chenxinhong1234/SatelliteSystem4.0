@@ -16,6 +16,8 @@
 
     <link rel="stylesheet" th:href="@{/css/charisma-app.css}" href="../../static/css/charisma-app.css"/>
     <link rel="stylesheet" th:href="@{/css/application.css}" href="../../static/css/application.css"/>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../../static/layui/css/layui.css"  media="all"/>
 </head>
 <body>
 <div th:replace="layout/layout :: navbar"></div>  <!--插入layout.html中的<navbar> : 所有页面的导航栏-->
@@ -32,28 +34,47 @@
             <div class="box" style="width: 55%;float: left">
                 <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 智能垃圾识别分类</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 实时观测</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="wizard" data-initialize="wizard" id="wizard"></div>
-                        <!--加入视频-->
+                 <!--加入视频-->
                         <video width="100%" autoplay="autoplay" controls="controls">
-                            <source src="static/video/VCR22.mp4" type="video/mp4"></source>
+                            <source src="static/video/garbage.mp4" type="video/mp4"></source>
                         </video>
+                        <br/>
+                        <hr/>
+                <!--上传图片：进行深度学习-->
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn layui-btn-normal" id="testList">选择在线垃圾图片</button>
+                            <button type="button" class="layui-btn" id="distinguish">开始判别</button>
+                            <div class="layui-upload-list">
+                                <table class="layui-table">
+                                    <thead>
+                                    <tr><th>文件名</th>
+                                        <th>大小</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr></thead>
+                                    <tbody id="demoList"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <p>在线上传细胞星观测到的垃圾图片，开始深度学习，智能分析垃圾类型</p>
                     </div>
                 </div>
             </div>
             <!--input ends-->
 
             <!--input2 starts-->
-            <div class="box" style="width: 40%;float: right">
+            <div class="box" style="width: 43%;float: right">
                 <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 深度学习判别结果</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 空间垃圾类型查询</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
@@ -61,10 +82,6 @@
                     </div>
                     <div class="box-content">
                         <div class="wizard" data-initialize="wizard" id="wizard">
-                            <!--<div class="container" style="width: 100%">
-                                <label >机组基本信息</label>
-                            </div>-->
-
                             <div class="container" style="width: 100%;">
                                 <table id="example" class="table table-striped table-bordered"
                                        cellspacing="0"></table>
@@ -74,124 +91,50 @@
                 </div>
             </div>
             <!--input2 ends-->
-            <br/>
 
-            <!--output starts -->
-            <div class="box" style="margin-top: 48%;float: bottom; height:100%">
-                <div class="box-inner">
+
+            <!--output1 starts -->
+            <div class="box" style="width: 55%;float: left;margin-bottom: 8%">
+                <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 深度学习矩阵</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 判别结果分析</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
-                    <!--<div class="box-content">-->
-                    <!--<ul class="nav nav-tabs">-->
-                    <!--<li class="active"><a data-toggle="tab" href="#home">热控分系统</a></li>-->
-                    <!--<li><a data-toggle="tab" href="#menu1">结构分系统</a></li>-->
-                    <!--<li><a data-toggle="tab" href="#menu2">姿态分系统</a></li>-->
-                    <!--<li><a data-toggle="tab" href="#menu3">遥测遥控分系统</a></li>-->
-                    <!--<li><a data-toggle="tab" href="#menu4">数传系统</a></li>-->
-                    <!--</ul>-->
-
-
-                    <!--<div class="tab-content">-->
-                    <!--&lt;!&ndash;热控分系统&ndash;&gt;-->
-                    <!--<div id="home" class="tab-pane fade in active">-->
-                    <!--<hr/>-->
-                    <!--<h3>功能：</h3>-->
-                    <!--<p>通过调节卫星上的热量收集、传输、存储传输、存储及排散过 程，实现控制卫星上的温度分布，-->
-                    <!--实现控制卫星上的温度分布及温度变化，以保证卫星上温度变化，以保证卫星上各种仪器设备-->
-                    <!--和有效载荷正常工作所必需的温度条件 。与此同时 ，通过控制卫星与，通过控制卫星与周围-->
-                    <!--环境之间的热量交换，降低复杂恶劣的空间热环境对卫星的影响。</p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">整星热分析工作流程图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/hot.jpg" style="width: 60%;height: 20%"/></p>-->
-                    <!--<hr/>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;结构分系统&ndash;&gt;-->
-                    <!--<div id="menu1" class="tab-pane fade">-->
-                    <!--<hr/>-->
-                    <!--<h3>功能：</h3>-->
-                    <!--<p>任务卫星结构主要功能为：能够承受地面、发射和在轨工作时的各种工作载荷；-->
-                    <!--保证卫星在地面、发射和在轨工作时构型的完整性，满足星内仪器设备及有效载荷提在发射阶段不受到损坏；-->
-                    <!--在轨运行期间提供较好的工作环境。</p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">卫星整体布局</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/jiegou1.jpg" style="width: 60%;height: 20%"/></p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">卫星平台包络</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/jiegou2.jpg" style="width: 60%;height: 20%"/></p>-->
-                    <!--<hr/>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;姿态分系统&ndash;&gt;-->
-                    <!--<div id="menu2" class="tab-pane fade">-->
-                    <!--<hr/>-->
-                    <!--<h3>功能：</h3>-->
-                    <!--<p>用于获取卫星姿态并施加控制力矩，稳定、保持卫星当前姿态或控制卫星姿态从当前姿态过渡到另一个姿态。-->
-                    <!--轨道控制功能用于根据卫星任务要求进行轨道的调整，保证轨道满足任务的约束。</p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">姿态控制分系统测量配置</h3>-->
-                    <!--<div class="container">-->
-                    <!--<table id="pose" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>-->
-                    <!--</div>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">姿态控制简图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/pose.jpg" style="width: 70%;height: 40%"/></p>-->
-                    <!--<hr/>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;遥测遥控分系统&ndash;&gt;-->
-                    <!--<div id="menu3" class="tab-pane fade">-->
-                    <!--<hr/>-->
-                    <!--<h3>功能：</h3>-->
-                    <!--<p>通过卫星的测控系统与测控地面站的配合，可以完成卫星的跟踪测轨、遥测、遥控等上下行测控通信功能，-->
-                    <!--以及测控信息的中继转发、星上信息的处理与管理功能。测控分系统是对卫星进行跟踪，遥测，遥控的专用电子系统，-->
-                    <!--由星载测控分系统和地面测控网两部分组成。其中星载测控分系统实现的功能包括：采集、处理、发送卫星工程参数，-->
-                    <!--由地面测控网实现对卫星工作状态的监测；接收地面测控网发送的指令或数据信息，对卫星进行指令控制，-->
-                    <!--完成特定的卫星操作，实现工程任务目标。</p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">V/U收发信机原理框图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/yaokong.jpg" style="width: 70%;height: 40%"/></p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">天线方案框图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/tianxian.jpg" style="width: 70%;height: 40%"/></p>-->
-                    <!--<hr/>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;数传分系统&ndash;&gt;-->
-                    <!--<div id="menu4" class="tab-pane fade">-->
-                    <!--<hr/>-->
-                    <!--<h3>功能：</h3>-->
-                    <!--<p>数传分系统是卫星与地面站之间的无线输通道，其主要任务包括：</p>-->
-                    <!--<p>（1）支持载荷数据的下行传，将调制后发送至地面站。</p>-->
-                    <!--<p>（2）数据传输速率可变，适应不同地面站的接收能力。</p>-->
-                    <!--<p>（3）采集数传分系统自身的工程参，通过总线发送至中心计算机。</p>-->
-                    <!--<p>（4）中心计算机发生异常时，自主数传分系统的工程遥测参数。</p>-->
-
-                    <!--<hr/>-->
-                    <!--<h3 align="center">数传分系统原理框图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/shuchuan.jpg" style="width: 70%;height: 40%"/></p>-->
-                    <!--<hr/>-->
-                    <!--<h3 align="center">基带处理单元原理框图</h3>-->
-                    <!--<p align="center"><img src="static/images/SonSystem/shuchuan2.jpg" style="width: 70%;height: 40%"/></p>-->
-                    <!--<hr/>-->
-                    <!--</div>-->
-
-                    <!--</div>-->
-                    <!--</div>-->
+                    <div class="box-content">
+                        <!--饼状图-->
+                        <div id="container1" style="min-width:400px;height:400px"></div>
+                        <button type="button" class="layui-btn" id="suggestion">评价与建议</button>
+                    </div>
                 </div>
+            </div>
+            <!--output1 ends-->
 
-            </div><!--output ends-->
+            <!--output2 starts -->
+            <div class="box" style="width: 43%;float: right;margin-bottom: 8%">
+                <div class="box-inner" style="height: 100%">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 规避和处理建议</h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                    class="glyphicon glyphicon-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <div class="container2" style="width: 100%;">
+                            <table id="example2" class="table table-striped table-bordered"
+                                   cellspacing="0"></table>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <!--output2 ends-->
 
-        </div><!-- content ends -->
-        <!-- content starts -->
-
-    </div><!--/row-->
+    </div><!-- content ends -->
+   </div><!--/row-->
 
 </div><!--/container-fluid-->
 
@@ -210,28 +153,39 @@
 <script th:src="@{/js/bootstrap-dialog.js}" src="../../static/js/bootstrap-dialog.js"></script>
 <script th:src="@{/js/jquery.cookie.js}" src="../../static/js/jquery.cookie.js"></script>
 
-<script th:src="@{/js/highcharts.src.js}" src="../../static/js/highcharts.src.js"></script>
-<script th:src="@{/js/exporting.src.js}" src="../../static/js/exporting.src.js"></script>
+
+
 <script th:src="@{/js/myChart.js}" src="../../static/js/myChart.js"></script>
 
 <script th:src="@{/js/lodash.js}" src="../../static/js/lodash.js"></script>
 <script th:src="@{/js/jquery.backstretch.js}" src="../../static/js/jquery.backstretch.js"></script>
 <script th:src="@{/js/charisma.js}" src="../../static/js/charisma.js"></script>
 <script th:src="@{/js/application.js}" src="../../static/js/application.js"></script>
-<script>
 
-    data=[["HLD786","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"] ];
-    // dataTables
+<script src="static/layui/layui.js" charset="utf-8"></script>
+
+<script th:src="@{/js/highcharts/highcharts.js}" src="../../static/js/highcharts/highcharts.js"></script>
+<script th:src="@{/js/highcharts/highcharts-zh_CN.js}" src="../../static/js/highcharts/highcharts-zh_CN.js"></script>
+<script>
+    /*垃圾类型*/
+    data=[["大垃圾","大"],
+        ["小垃圾","小"],
+        ["非常大垃圾","非常大"],
+        ["非常小垃圾","非常小"],
+        ["非常复杂垃圾","非常复杂"],
+        ["非常简单垃圾","非常简单"] ];
+
+    /*评价与建议*/
+    suggestdata=[
+        ["大垃圾","圆圈避障","撒网抓取"]
+    ];
+
+    // 垃圾类型的显现
     $('#example').dataTable({
         data: data,
         columns: [
-            {title: "卫星类型"},
-            {title: "卫星功能"}
+            {title: "垃圾类型"},
+            {title: "垃圾特征"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
@@ -242,20 +196,14 @@
         scroller: true
     });
 
-    /*姿态分系统的表格*/
-    posedata=[[1,"对日定向三轴稳模式","长期运行","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [2,"对J2000.0定向三轴稳定模式","长期运行","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [3,"对地面站/目标地区定向三轴稳定模式","数传、成像任务","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [4,"对主星定向三轴稳定模式","成像任务","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [5,"安全模式","姿态失稳、能源不足","星敏+惯组组件+精/粗太阳敏+飞轮+磁力矩器"] ];
-    // dataTables
-    $('#pose').dataTable({
-        data: posedata,
+    // 建议的展示
+    function suggest(){
+    $('#example2').dataTable({
+        data: suggestdata,
         columns: [
-            {title: "序号"},
-            {title: "控制模式"},
-            {title: "使用场合"},
-            {title: "姿控部件"}
+            {title: "判别类型"},
+            {title: "规避方式"},
+            {title: "处理方式"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
@@ -264,6 +212,117 @@
         scrollY: 400,
         scrollCollapse: true,
         scroller: true
+    });
+ }
+
+    //普通图片上传
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+        //多文件列表示例
+        var demoListView = $('#demoList')
+            ,uploadListIns = upload.render({
+            elem: '#testList'
+            ,url: '/upload/'
+            ,accept: 'file'
+            ,multiple: true
+            ,auto: false
+            /*,bindAction: '#testListAction'*/    /*去掉模板中的按钮【开始诊断】的动作，重新定一个动作*/
+            ,choose: function(obj){
+                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(function(index, file, result){
+                    var tr = $(['<tr id="upload-'+ index +'">'
+                        ,'<td>'+ file.name +'</td>'
+                        ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+                        ,'<td>等待判别</td>'
+                        ,'<td>'
+                        ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                        ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                        ,'</td>'
+                        ,'</tr>'].join(''));
+
+                    //单个重传
+                    tr.find('.demo-reload').on('click', function(){
+                        obj.upload(index, file);
+                    });
+
+                    //删除
+                    tr.find('.demo-delete').on('click', function(){
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                    });
+
+                    demoListView.append(tr);
+                });
+            }
+            ,done: function(res, index, upload){
+                if(res.code == 0){ //上传成功
+                    var tr = demoListView.find('tr#upload-'+ index)
+                        ,tds = tr.children();
+                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(3).html(''); //清空操作
+                    return delete this.files[index]; //删除文件队列已经上传成功的文件
+                }
+                this.error(index, upload);
+            }
+            ,error: function(index, upload){
+                var tr = demoListView.find('tr#upload-'+ index)
+                    ,tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+            }
+        });
+    });
+
+    /*饼状图的绘制*/
+    function PieChart(){
+        $('#container1').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: '判别垃圾样本的种类百分别'
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '浏览器访问量占比',
+                data: [
+                    ['Firefox',   45.0],
+                    ['IE',       26.8],
+                    {
+                        name: 'Chrome',
+                        y: 12.8,
+                        sliced: true,
+                        selected: true
+                    },
+                    ['Safari',    8.5],
+                    ['Opera',     6.2],
+                    ['其他',   0.7]
+                ]
+            }]
+        });
+    }
+
+    $(function () {
+        $("#distinguish").click(PieChart); // 点击【开始判别】，在下面显示饼状图
+        $("#suggestion").click(suggest); // 点击【开始判别】，在下面显示饼状图
     });
 </script>
 </body>
