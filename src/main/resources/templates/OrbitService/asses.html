@@ -4,8 +4,8 @@
     <meta charset="UTF-8"/>
     <title>状态评估</title>
 
-    <link rel="stylesheet" type="text/css" href="../../static/css/assess/easyui.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/assess/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/tool/assess/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/tool/assess/icon.css"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/assess/assesment.css"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/assess/inputdiv.css"/>
     <link rel="stylesheet" type="text/css" href="../../static/tool/easyui-1.4.5/themes/default/easyui.css"/>
@@ -62,15 +62,12 @@
                 <label style="margin-bottom: 5px">时间：</label>
                 <input id="beginDate"
                        class="easyui-datebox"
-                       data-options="formatter:myformatter,parser:myparser"
                        style="width: 150px; height: 26px"/>
 
                 <a id="bt_assess" href="#" class="easyui-linkbutton"
                    data-options="iconCls:'icon-ok'">开始评估</a>
                 <a id="bt_history"
                    class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/history">历史数据</a>
-                <a id="bt_ahp"
-                   class="easyui-linkbutton" href="/BLHPumTurEvaDia/assess/ahp/main">层次分析</a>
 
             </div>
         </div>
@@ -79,8 +76,8 @@
         <div id="content" class="col-sm-10 col-lg-10">
 
             <!--input1 starts-->
-            <div class="box" style="width:100%">
-                <div class="box-inner" style="height: 100%">
+            <div class="box" style="width:100%;float: left">
+                <div class="box-inner" style="height: 100%;width:100%;float: left">
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 综合状态评估</h2>
 
@@ -90,8 +87,8 @@
                         </div>
                     </div>
                     <div class="box-content">
-                        <!--加入视频-->
-                        <div class="midDiv" style=" width: 61% ;float: left">
+                        <!--加入评估结果指标-->
+                        <div class="midDiv" style=" width:75% ;float: left">
                             <div>
                                 <div class="tt" style="font: 10px; height: 10px">分项评估结果 共 5 项</div>
                             </div>
@@ -106,6 +103,7 @@
                                         value="93.2"/>
                                 </div>
                             </div>
+
                             <div class="middle">
                                 <img class="middleImg"
                                      src="../../static/images/assess/温度.png"/>
@@ -140,8 +138,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="midDiv" style=" width: 30% ;float: right">
+                        <!--加入评估饼图-->
+                        <div class="midDiv" style=" width:25%;float: right">
                             <div id="chartAssement"
                                  style="width: 250px;height: 250px;"></div>
                         </div>
@@ -211,8 +209,7 @@
 
 <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
 
-<!--<script type="text/javascript" src="../../static/tool/easyui-1.4.5/jquery.min.js"></script>-->
-<script type="text/javascript" src="../../static/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
+
 
 <script th:src="@{/js/bootstrap.js}" src="../../static/js/bootstrap.js"></script>
 <script th:src="@{/js/moment-with-locales.js}" src="../../static/js/moment-with-locales.js"></script>
@@ -225,15 +222,19 @@
 <script th:src="@{/js/bootstrap-dialog.js}" src="../../static/js/bootstrap-dialog.js"></script>
 <script th:src="@{/js/jquery.cookie.js}" src="../../static/js/jquery.cookie.js"></script>
 
-
+<!--<script type="text/javascript" src="../../static/tool/easyui-1.4.5/jquery.min.js"></script>-->
+<script type="text/javascript" src="../../static/tool/easyui-1.4.5/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../static/tool/highcharts.js"></script>
+<script type="text/javascript" src="../../static/tool/assess/exporting.js"></script>
 <script type="text/javascript" src="../../static/tool/highcharts-more.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts-zh_CN.js"></script>
 
-<script th:src="@{/js/exporting.src.js}" src="../../static/js/exporting.src.js"></script>
+<!--<script th:src="@{/js/exporting.src.js}" src="../../static/js/exporting.src.js"></script>-->
 <script th:src="@{/js/myChart.js}" src="../../static/js/myChart.js"></script>
 
 <script th:src="@{/js/lodash.js}" src="../../static/js/lodash.js"></script>
 <script th:src="@{/js/charisma.js}" src="../../static/js/charisma.js"></script>
+
 
 <script type="text/javascript" src="../../static/tool/test_drawGuage.js"></script>
 

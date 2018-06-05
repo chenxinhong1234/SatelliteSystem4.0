@@ -154,7 +154,6 @@
 <script th:src="@{/js/jquery.cookie.js}" src="../../static/js/jquery.cookie.js"></script>
 
 
-
 <script th:src="@{/js/myChart.js}" src="../../static/js/myChart.js"></script>
 
 <script th:src="@{/js/lodash.js}" src="../../static/js/lodash.js"></script>
@@ -164,8 +163,10 @@
 
 <script src="static/layui/layui.js" charset="utf-8"></script>
 
-<script th:src="@{/js/highcharts/highcharts.js}" src="../../static/js/highcharts/highcharts.js"></script>
-<script th:src="@{/js/highcharts/highcharts-zh_CN.js}" src="../../static/js/highcharts/highcharts-zh_CN.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts.js"></script>
+<script type="text/javascript" src="../../static/tool/assess/exporting.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts-more.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts-zh_CN.js"></script>
 <script>
     /*垃圾类型*/
     data=[["大垃圾","大"],
@@ -284,6 +285,9 @@
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
+            },
+            credits: {
+                enabled:false     /*去除水印*/
             },
             title: {
                 text: '判别垃圾样本的种类百分别'
