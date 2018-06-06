@@ -124,6 +124,12 @@ public class NavigationController {
         return "OrbitService/SpaceJunk";
     }
 
+    @GetMapping("/map")
+    public String map(ModelMap model) {
+        getUsername(model);
+        return "OrbitService/map";
+    }
+
     @GetMapping("/report")
     public String report(ModelMap model) {
         getUsername(model);
