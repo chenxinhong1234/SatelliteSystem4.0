@@ -35,28 +35,33 @@
         <div th:replace="layout/layout :: menu2"></div>  <!--插入layout.html中的<menu2> :《厂内经济运行》的导航栏-->
         <!-- left menu ends -->
 
+        <!--条件输入 starts-->
         <div class="col-sm-10 col-lg-10">
             <div class="input_div" style="margin-bottom: 5px;margin-top: 8px;">
                 <span class="input_title">条件输入：</span>
 
-                <label for="model">机组：</label>
+                <!--<label for="model">机组：</label>
                 <select id="unitNo" class="easyui-combobox" style="width: 100px;">
                     <option value="1">1#</option>
                     <option value="2">2#</option>
                     <option value="3">3#</option>
                     <option value="4">4#</option>
-                </select>
+                </select>-->
 
                 <label for="model">子系统选择： </label>
 
                 <select id="subSystem"
-                        class="easyui-combobox" style="width: 140px;">
-                    <option value="pum">水泵水轮机</option>
-                    <option value="gov">调速器系统</option>
-                    <option value="exc">发电机及励磁系统</option>
-                    <option value="ball">球阀系统</option>
-                    <option value="transfer">主变系统</option>
-
+                        class="easyui-combobox" style="width: 145px;">
+                    <option value="1">电源分系统</option>
+                    <option value="2">测控分系统</option>
+                    <option value="3">热控分系统</option>
+                    <option value="4">控制分系统</option>
+                    <option value="5">推进分系统</option>
+                    <option value="6">推进分系统</option>
+                    <option value="7">综合电子分系统</option>
+                    <option value="8">自主运行分系统</option>
+                    <option value="9">有效载荷分系统</option>
+                    <option value="10">监视测量分系统</option>
                 </select>
 
                 <label style="margin-bottom: 5px">时间：</label>
@@ -71,6 +76,7 @@
 
             </div>
         </div>
+        <!--条件输入 ends-->
 
         <!-- content starts -->
         <div id="content" class="col-sm-10 col-lg-10">
@@ -90,17 +96,16 @@
                         <!--加入评估结果指标-->
                         <div class="midDiv" style=" width:75% ;float: left">
                             <div>
-                                <div class="tt" style="font: 10px; height: 10px">分项评估结果 共 5 项</div>
+                                <div class="tt" style="font: 10px; height: 10px">分项评估结果 共 4 项</div>
                             </div>
                             <hr/>
                             <div class="middle">
                                 <img class="middleImg"
                                      src="../../static/images/assess/振动.png"/>
                                 <div>
-                                    <label id="label1" style="margin-bottom: 5px">轴系振摆：</label> <input
-                                        id="text_oil_remark" class="easyui-textbox"
-                                        data-options="readonly:true,editable:false" style="width: 40px"
-                                        value="93.2"/>
+                                    <label id="label1" style="margin-bottom: 5px">位置偏移稳定性：</label> <input
+                                        id="text_oil_remark" class="easyui-textbox" type="text"
+                                        data-options="readonly:true,editable:false" style="width: 40px"/>
                                 </div>
                             </div>
 
@@ -108,37 +113,34 @@
                                 <img class="middleImg"
                                      src="../../static/images/assess/温度.png"/>
                                 <div>
-                                    <label id="label2" style="margin-bottom: auto">水导轴承温度：</label> <input
-                                        id="text_condition_remark" class="easyui-textbox"
-                                        data-options="readonly:true,editable:false" style="width: 40px"
-                                        value="87.9"/>
+                                    <label id="label2" style="margin-bottom: auto">太阳能板温度：</label> <input
+                                        id="text_condition_remark" class="easyui-textbox" type="text"
+                                        data-options="readonly:true,editable:false" style="width: 40px"/>
                                 </div>
 
+                            </div>
+
+                            <div class="middle">
+                                <img class="middleImg"
+                                     src="../../static/images/assess/oil.png"/>
+                                <div>
+                                    <label id="label2" style="margin-bottom: auto">电源供能：</label> <input
+                                        id="text_energy_remark" class="easyui-textbox" type="text"
+                                        data-options="readonly:true,editable:false" style="width: 40px"/>
+                                </div>
                             </div>
 
                             <div class="middle">
                                 <img class="middleImg"
                                      src="../../static/images/assess/密封.png"/>
                                 <div>
-                                    <label id="label2" style="margin-bottom: auto">主轴密封：</label> <input
-                                        id="text_condition_remark" class="easyui-textbox"
-                                        data-options="readonly:true,editable:false" style="width: 40px"
-                                        value="92.5"/>
-                                </div>
-                            </div>
-
-                            <div class="middle">
-                                <img class="middleImg"
-                                     src="../../static/images/assess/导水.png"/>
-                                <div>
-                                    <label id="label2" style="margin-bottom: auto">导水机构：</label> <input
-                                        id="text_condition_remark" class="easyui-textbox"
-                                        data-options="readonly:true,editable:false" style="width: 40px"
-                                        value="100"/>
+                                    <label id="label2" style="margin-bottom: auto">电能转化：</label> <input
+                                        id="text_translate_remark" class="easyui-textbox" type="text"
+                                        data-options="readonly:true,editable:false" style="width: 40px"/>
                                 </div>
                             </div>
                         </div>
-                        <!--加入评估饼图-->
+                        <!--加入仪表盘-->
                         <div class="midDiv" style=" width:25%;float: right">
                             <div id="chartAssement"
                                  style="width: 250px;height: 250px;"></div>
@@ -181,9 +183,6 @@
                     </div>
                     <div class="box-content">
                         <div class="wizard" data-initialize="wizard" id="wizard">
-                            <div class="container" style="width: 100%">
-                                <label>机组基本信息</label>
-                            </div>
 
                             <div class="container" style="width: 100%;">
                                 <table id="example" class="table table-striped table-bordered"
@@ -240,23 +239,41 @@
 
 
 <script type="text/javascript">
+    /*仪表盘结果的填入*/
+    function jia(){
+    drawGuage('chartAssement', 95);
+    }
+    /*分项评估结果的填入*/
+    function assesResult() {
+        $('#text_oil_remark').textbox('setValue','100');
+        $('#text_condition_remark').textbox('setValue','87.9');
+        $('#text_energy_remark').textbox('setValue','92.5');
+        $('#text_translate_remark').textbox('setValue','100');
+        }
+
     $(function () {
+
         drawGuage('chartAssement', 0);
+        $("#bt_assess").click(barChart); // 点击【开始评估】，在下面显示柱状图
+        $("#bt_assess").click(dataTable); // 点击【开始评估】，在下面显示表格
+        $("#bt_assess").click(jia);// 点击【开始评估】，显示仪表盘分数
+        $("#bt_assess").click(assesResult);
     });
 </script>
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
+        /*柱状图 */
+        function barChart(){
         var chart = {
             type: 'column'
         };
         var title = {
-            text: '水泵水轮机系统综合状态评估'
+            text: '电源分系统综合状态评估'
         };
 
         var xAxis = {
-            categories: ['轴系振摆', '水导轴承温度', '主轴密封', '导水机构', '历史状态'],
+            categories: ['位置偏移稳定性', '太阳能板温度', '电源供能', '电能转化', '历史状态'],
             crosshair: true
         };
         var yAxis = {
@@ -291,24 +308,28 @@
         json.plotOptions = plotOptions;
         json.credits = credits;
         $('#chart_middle_bar').highcharts(json);
+        }
 
-    });
 </script>
 
 
 <script>
 
-    data = [["主轴X轴位移（μm）", "46"],
-        ["主轴Y轴位移（μm）", "61"],
-        ["水导X轴振摆速（mm/s）率", "1.5"],
-        ["水导Y轴振摆速（mm/s）率", "2.4"],
-        ["水导Z轴振摆速（mm/s）率", "0.9"],
-        ["轴承温度（℃）", "42"]];
-    // dataTables
+    data = [
+        ["电流组合损失", "0.98"],
+        ["电流温度交变损失", "0.98"],
+        ["连接轴X轴位移（μm）", "46"],
+        ["连接轴Y轴位移（μm）", "61"],
+        ["太阳能板表面温度（℃）", "42"],
+        ["太阳能接收功率（W）", "80"],
+        ["电能转化功率（W）", "52"],
+        ["能量转换效率", "65%"]];
+    // 表格
+    function dataTable(){
     $('#example').dataTable({
         data: data,
         columns: [
-            {title: "计算指标"},
+            {title: "测量指标"},
             {title: "运行值"}
         ],
         "language": {
@@ -318,7 +339,8 @@
         scrollY: 400,
         scrollCollapse: true,
         scroller: true
-    });
+     });
+   }
 
 </script>
 

@@ -109,6 +109,12 @@ public class NavigationController {
     @GetMapping("/OrbitService")
     public String orbitservice(ModelMap model) {
         getUsername(model);
+        return "OrbitService/SpaceJunk";
+    }
+
+    @GetMapping("/Visual_Inspection")
+    public String visualInspection(ModelMap model) {
+        getUsername(model);
         return "OrbitService/Visual_Inspection";
     }
 
@@ -122,6 +128,12 @@ public class NavigationController {
     public String spacejunk(ModelMap model) {
         getUsername(model);
         return "OrbitService/SpaceJunk";
+    }
+
+    @GetMapping("/satelliteRelease")
+    public String satelliteRelease(ModelMap model) {
+        getUsername(model);
+        return "OrbitService/satelliteRelease";
     }
 
     @GetMapping("/map")

@@ -83,7 +83,10 @@
                     <div class="box-content">
                         <div class="wizard" data-initialize="wizard" id="wizard">
                             <div class="container" style="width: 100%;">
-                                <table id="example" class="table table-striped table-bordered"
+                                <table id="example1" class="table table-striped table-bordered"
+                                       cellspacing="0"></table>
+                                <br/><hr/>
+                                <table id="example2" class="table table-striped table-bordered"
                                        cellspacing="0"></table>
                             </div>
                         </div>
@@ -106,7 +109,9 @@
                     <div class="box-content">
                         <!--饼状图-->
                         <div id="container1" style="min-width:400px;height:400px"></div>
-                        <button type="button" class="layui-btn" id="suggestion">评价与建议</button>
+                        <div align="center">
+                            <button type="button" class="layui-btn" id="suggestion">评价与建议</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,7 +129,7 @@
                     </div>
                     <div class="box-content">
                         <div class="container2" style="width: 100%;">
-                            <table id="example2" class="table table-striped table-bordered"
+                            <table id="example3" class="table table-striped table-bordered"
                                    cellspacing="0"></table>
                         </div>
 
@@ -169,24 +174,35 @@
 <script type="text/javascript" src="../../static/tool/highcharts-zh_CN.js"></script>
 <script>
     /*垃圾类型*/
-    data=[["大垃圾","大"],
-        ["小垃圾","小"],
-        ["非常大垃圾","非常大"],
-        ["非常小垃圾","非常小"],
-        ["非常复杂垃圾","非常复杂"],
-        ["非常简单垃圾","非常简单"] ];
-
-    /*评价与建议*/
-    suggestdata=[
-        ["大垃圾","圆圈避障","撒网抓取"]
-    ];
+    data1=[["失效的载荷与运载火箭末级","可使航天器解体，有致命危害"],
+        ["任务相关碎片","航天表面损伤或使无保护措施部件受损"],
+        ["解体碎片","航天表面损伤或使无保护措施部件受损"],
+        ["失效航天器","可使航天器表面或部件损伤或整体失效"]];
+    data2=[["大碎片","大于10厘米","大于1千克"],
+        ["危险碎片","1毫米~10厘米","1毫克~1千克"],
+        ["小碎片","小于1毫米","小于1毫克"]];
 
     // 垃圾类型的显现
-    $('#example').dataTable({
-        data: data,
+    $('#example1').dataTable({
+        data: data1,
         columns: [
             {title: "垃圾类型"},
-            {title: "垃圾特征"}
+            {title: "垃圾危害"}
+        ],
+        "language": {
+            "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
+        },
+        deferRender: true,
+        scrollY: 400,
+        scrollCollapse: true,
+        scroller: true
+    });
+    $('#example2').dataTable({
+        data: data2,
+        columns: [
+            {title: "碎片类型"},
+            {title: "尺寸大小"},
+            {title: "质量大小"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
@@ -197,14 +213,18 @@
         scroller: true
     });
 
+    /*评价与建议*/
+    suggestdata=[
+        ["失效航天器","变轨至运行区域以外"]
+    ];
+
     // 建议的展示
     function suggest(){
-    $('#example2').dataTable({
+    $('#example3').dataTable({
         data: suggestdata,
         columns: [
             {title: "判别类型"},
-            {title: "规避方式"},
-            {title: "处理方式"}
+            {title: "规避方式"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
@@ -290,7 +310,7 @@
                 enabled:false     /*去除水印*/
             },
             title: {
-                text: '判别垃圾样本的种类百分别'
+                text: '判别垃圾种类百分比'
             },
 
             plotOptions: {
@@ -306,19 +326,17 @@
             },
             series: [{
                 type: 'pie',
-                name: '浏览器访问量占比',
+                name: '判别垃圾种类百分比',
                 data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
+                    ['失效的载荷与运载火箭末级',   1.4],
+                    ['任务相关碎片',       2.9],
                     {
-                        name: 'Chrome',
-                        y: 12.8,
+                        name: '失效航天器',
+                        y: 92.2,
                         sliced: true,
                         selected: true
                     },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['其他',   0.7]
+                    ['解体碎片',    3.5]
                 ]
             }]
         });
@@ -326,7 +344,7 @@
 
     $(function () {
         $("#distinguish").click(PieChart); // 点击【开始判别】，在下面显示饼状图
-        $("#suggestion").click(suggest); // 点击【开始判别】，在下面显示饼状图
+        $("#suggestion").click(suggest); // 点击【建议】，在下面显示建议
     });
 </script>
 </body>

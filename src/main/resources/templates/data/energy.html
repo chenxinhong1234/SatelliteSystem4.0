@@ -67,16 +67,13 @@
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="wizard" data-initialize="wizard" id="wizard">
-                            <div class="container" style="width: 100%">
-                                <label >机组基本信息</label>
-                            </div>
+
 
                             <div class="container" style="width: 100%;">
                                 <table id="example" class="table table-striped table-bordered"
                                        cellspacing="0"></table>
                             </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -86,52 +83,20 @@
             <div class="box" style="margin-top: 35%;float: bottom; height:100%">
                 <div class="box-inner">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 卫星分系统</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 太阳能帆板展开示意
+                        </h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
-                    <!--<div class="box-content">-->
-                        <!--<ul class="nav nav-tabs">-->
-                            <!--<li class="active"><a data-toggle="tab" href="#home">热控分系统</a></li>-->
-                            <!--<li><a data-toggle="tab" href="#menu1">结构分系统</a></li>-->
-                            <!--<li><a data-toggle="tab" href="#menu2">姿态分系统</a></li>-->
-                            <!--<li><a data-toggle="tab" href="#menu3">遥测遥控分系统</a></li>-->
-                            <!--<li><a data-toggle="tab" href="#menu4">数传系统</a></li>-->
-                        <!--</ul>-->
-                        <!--<div class="tab-content">-->
-                            <!--<div id="home" class="tab-pane fade in active">-->
-                                <!--<hr/>-->
-                                <!--<img src="static/images/xingkong.jpg" style="width: 100%;height: 80%"/>-->
-                                <!--<hr/>-->
-                            <!--</div>-->
-
-                            <!--<div id="menu1" class="tab-pane fade">-->
-                                <!--<hr/>-->
-                                <!--<img src="static/images/xingkomng2.jpg" style="width: 100%;height: 80%"/>-->
-                                <!--<hr/>-->
-                            <!--</div>-->
-
-                            <!--<div id="menu2" class="tab-pane fade">-->
-                                <!--<hr/>-->
-                                <!--<img src="static/images/xingkomng2.jpg" style="width: 100%;height: 80%"/>-->
-                                <!--<hr/>-->
-                            <!--</div>-->
-
-                            <!--<div id="menu3" class="tab-pane fade">-->
-                                <!--<hr/>-->
-                                <!--<img src="static/images/xingkomng2.jpg" style="width: 100%;height: 80%"/>-->
-                                <!--<hr/>-->
-                            <!--</div>-->
-
-                            <!--<div id="menu4" class="tab-pane fade">-->
-                                <!--<hr/>-->
-                                <!--<img src="static/images/xingkomng2.jpg" style="width: 100%;height: 80%"/>-->
-                                <!--<hr/>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <!--加入视频-->
+                    <video width="100%" autoplay="autoplay" controls="controls">
+                        <source src="static/video/太阳电池模块装配.mp4" type="video/mp4"></source>
+                    </video>
+                    <br/><br/>
+                    <br/><br/>
+                    <br/>
                 </div>
 
             </div><!--output ends-->
@@ -171,12 +136,13 @@
 <script src="static/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    data=[["HLD786","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"] ];
+    data=[["电池结构","n/p型三结砷化镓"],
+        ["电池尺寸(mm)","40.15x80.15"],
+        ["短路电流Isc（mA）","507"],
+        ["工作电流Imp（mA）","487"],
+        ["开路电压Voc（mV）","2667"],
+        ["工作电压Vmp（mV）","2371"],
+        ["电流紫外损失","0.98"]];
     // dataTables
     $('#example').dataTable({
         data: data,

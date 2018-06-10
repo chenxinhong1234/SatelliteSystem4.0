@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>空间视觉检测</title>
+    <title>子卫星释放</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css"/>
     <link rel="stylesheet" th:href="@{/css/font-awesome.css}" href="../../static/css/font-awesome.css"/>
     <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.css}" href="../../static/css/dataTables.bootstrap.css"/>
@@ -17,6 +17,7 @@
     <link rel="stylesheet" th:href="@{/css/charisma-app.css}" href="../../static/css/charisma-app.css"/>
     <link rel="stylesheet" th:href="@{/css/application.css}" href="../../static/css/application.css"/>
 
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../../static/layui/css/layui.css"  media="all"/>
 </head>
 <body>
 <div th:replace="layout/layout :: navbar"></div>  <!--插入layout.html中的<navbar> : 所有页面的导航栏-->
@@ -33,62 +34,71 @@
             <div class="box" style="width: 55%;float: left">
                 <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 空间视觉检测视频</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 子卫星释放演示视频</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="wizard" data-initialize="wizard" id="wizard"></div>
                         <!--加入视频-->
                         <video width="100%" autoplay="autoplay" controls="controls">
-                            <source src="static/video/VCR22.mp4" type="video/mp4"></source>
+                            <source src="static/video/子卫星释放.mp4" type="video/mp4"></source>
                         </video>
+                        <br/>
+                        <hr/>
                     </div>
                 </div>
             </div>
             <!--input ends-->
 
             <!--input2 starts-->
-            <div class="box" style="width: 40%;float: right">
+            <div class="box" style="width: 43%;float: right">
                 <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 系统运行参数</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 空间坐标系</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="wizard" data-initialize="wizard" id="wizard">
-                            <!--<div class="container" style="width: 100%">
-                                <label >机组基本信息</label>
-                            </div>-->
-
-                            <div class="container" style="width: 100%;">
-                                <table id="example" class="table table-striped table-bordered"
-                                       cellspacing="0"></table>
+                            <div class="container" style="width: 100%;height: 120%">
+                                <img src="static/images/release/earth.jpg" style="width: 100%;height: 435px"/>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <!--input2 ends-->
-            <br/>
 
 
+            <!--output starts -->
+            <div class="box" style="margin-top:43%;float: bottom; height:100%">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 相对距离的变化趋势
+                        </h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                    class="glyphicon glyphicon-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <!--加入视频-->
+                    <img src="static/images/release/仿真示意图.jpg" style="height: 100%;width: 100%"/>
+                    <br/><br/>
+                    <br/><br/>
+                    <br/>
+                </div>
+
+            </div><!--output ends-->
 
         </div><!-- content ends -->
-        <!-- content starts -->
-
     </div><!--/row-->
 
 </div><!--/container-fluid-->
 
 
 <div th:replace="layout/layout :: footer"></div>
-
 <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
 <script th:src="@{/js/bootstrap.js}" src="../../static/js/bootstrap.js"></script>
 <script th:src="@{/js/moment-with-locales.js}" src="../../static/js/moment-with-locales.js"></script>
@@ -101,66 +111,19 @@
 <script th:src="@{/js/bootstrap-dialog.js}" src="../../static/js/bootstrap-dialog.js"></script>
 <script th:src="@{/js/jquery.cookie.js}" src="../../static/js/jquery.cookie.js"></script>
 
-<script th:src="@{/js/highcharts.src.js}" src="../../static/js/highcharts.src.js"></script>
-<script th:src="@{/js/exporting.src.js}" src="../../static/js/exporting.src.js"></script>
+
 <script th:src="@{/js/myChart.js}" src="../../static/js/myChart.js"></script>
 
 <script th:src="@{/js/lodash.js}" src="../../static/js/lodash.js"></script>
 <script th:src="@{/js/jquery.backstretch.js}" src="../../static/js/jquery.backstretch.js"></script>
 <script th:src="@{/js/charisma.js}" src="../../static/js/charisma.js"></script>
 <script th:src="@{/js/application.js}" src="../../static/js/application.js"></script>
-<script>
 
-    data=[["相机种类","嵌入式立体相机"],
-        ["三维分辨率","2208 x 1242 max"],
-        ["RGB","2208 x 1242 max"],
-        ["深度范围","1.5-20m"],
-        ["帧率","每秒最大显示15帧"],
-        ["延迟","1帧"],
-        ["物理尺寸","175x30x33 mm"],
-        ["接口","USB3.0"],
-        ["视场","水平96度，垂直54度"]
-    ];
-    // dataTables
-    $('#example').dataTable({
-        data: data,
-        columns: [
-            {title: "卫星类型"},
-            {title: "卫星功能"}
-        ],
-        "language": {
-            "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
-        },
-        deferRender: true,
-        scrollY: 400,
-        scrollCollapse: true,
-        scroller: true
-    });
+<script src="static/layui/layui.js" charset="utf-8"></script>
 
-    /*姿态分系统的表格*/
-    posedata=[[1,"对日定向三轴稳模式","长期运行","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [2,"对J2000.0定向三轴稳定模式","长期运行","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [3,"对地面站/目标地区定向三轴稳定模式","数传、成像任务","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [4,"对主星定向三轴稳定模式","成像任务","星敏+MEMS惯组+飞轮+磁力矩器"],
-        [5,"安全模式","姿态失稳、能源不足","星敏+惯组组件+精/粗太阳敏+飞轮+磁力矩器"] ];
-    // dataTables
-    $('#pose').dataTable({
-        data: posedata,
-        columns: [
-            {title: "序号"},
-            {title: "控制模式"},
-            {title: "使用场合"},
-            {title: "姿控部件"}
-        ],
-        "language": {
-            "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
-        },
-        deferRender: true,
-        scrollY: 400,
-        scrollCollapse: true,
-        scroller: true
-    });
-</script>
-
+<script type="text/javascript" src="../../static/tool/highcharts.js"></script>
+<script type="text/javascript" src="../../static/tool/assess/exporting.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts-more.js"></script>
+<script type="text/javascript" src="../../static/tool/highcharts-zh_CN.js"></script>
 </body>
 </html>

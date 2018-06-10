@@ -100,6 +100,7 @@
                             <li><a data-toggle="tab" href="#menu2">姿态分系统</a></li>
                             <li><a data-toggle="tab" href="#menu3">遥测遥控分系统</a></li>
                             <li><a data-toggle="tab" href="#menu4">数传系统</a></li>
+                            <li><a data-toggle="tab" href="#menu5">供电系统</a></li>
                         </ul>
 
 
@@ -120,18 +121,10 @@
 
                             <!--结构分系统-->
                             <div id="menu1" class="tab-pane fade">
-                                <hr/>
-                                <h3>功能：</h3>
-                                <p>任务卫星结构主要功能为：能够承受地面、发射和在轨工作时的各种工作载荷；
-                                    保证卫星在地面、发射和在轨工作时构型的完整性，满足星内仪器设备及有效载荷提在发射阶段不受到损坏；
-                                    在轨运行期间提供较好的工作环境。</p>
-                                <hr/>
-                                <h3 align="center">卫星整体布局</h3>
-                                <p align="center"><img src="static/images/SonSystem/jiegou1.jpg" style="width: 60%;height: 20%"/></p>
-                                <hr/>
-                                <h3 align="center">卫星平台包络</h3>
-                                <p align="center"><img src="static/images/SonSystem/jiegou2.jpg" style="width: 60%;height: 20%"/></p>
-                                <hr/>
+                                <!--加入视频-->
+                                <video width="100%" autoplay="autoplay" controls="controls">
+                                    <source src="static/video/整体结构.mp4" type="video/mp4"></source>
+                                </video>
                             </div>
 
                             <!--姿态分系统-->
@@ -189,6 +182,26 @@
 
                             </div>
 
+                            <!--供电分系统-->
+                            <div id="menu5" class="tab-pane fade">
+                                <hr/>
+                                <h3>功能：</h3>
+                                <p>数传分系统是卫星与地面站之间的无线输通道，其主要任务包括：</p>
+                                <p>（1）支持载荷数据的下行传，将调制后发送至地面站。</p>
+                                <p>（2）数据传输速率可变，适应不同地面站的接收能力。</p>
+                                <p>（3）采集数传分系统自身的工程参，通过总线发送至中心计算机。</p>
+                                <p>（4）中心计算机发生异常时，自主数传分系统的工程遥测参数。</p>
+
+                                <hr/>
+                                <h3 align="center">供电原理框图</h3>
+                                <p align="center"><img src="static/images/SonSystem/供电分系统.jpg" style="width: 70%;height: 40%"/></p>
+                                <hr/>
+                                <h3 align="center">负载高峰期供电示意图</h3>
+                                <br/>
+                                <p align="center"><img src="static/images/SonSystem/供电系统流向图.jpg" style="width: 70%;height: 40%"/></p>
+                                <hr/>
+
+                            </div>
 
                         </div>
                     </div>
