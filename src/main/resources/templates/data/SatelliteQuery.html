@@ -29,10 +29,11 @@
         <div th:replace="layout/layout :: menu1"></div>  <!--插入layout.html中的<menu2> :《厂内经济运行》的导航栏-->
         <!-- left menu ends -->
 
+        <!-- content starts -->
         <div id="content" class="col-sm-10 col-lg-10">
 
-        <!--input starts-->
-            <div class="box" style="width: 55%;float: left; margin-bottom: 2%">
+            <!--input starts-->
+            <div class="box" style="width: 55%;float: left;">
                 <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon glyphicon-edit"></i> 卫星总系统图</h2>
@@ -83,11 +84,11 @@
             <!--input2 ends-->
             <br/>
 
-            <!--output starts -->
-            <div class="box" style="margin-top: 30%; height:100%">
-                <div class="box-inner">
+            <!--output1 starts -->
+            <div class="box" style="width: 100%;float: left;margin-bottom: 2%">
+                <div class="box-inner" style="height: 100%">
                     <div class="box-header well" data-original-title="">
-                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 卫星分系统</h2>
+                        <h2><i class="glyphicon glyphicon glyphicon-list"></i> 判别结果分析</h2>
                         <div class="box-icon">
                             <a href="#" class="btn btn-minimize btn-round btn-default"><i
                                     class="glyphicon glyphicon-chevron-up"></i></a>
@@ -167,10 +168,10 @@
                                 <hr/>
                                 <h3>功能：</h3>
                                 <p>数传分系统是卫星与地面站之间的无线输通道，其主要任务包括：</p>
-                                  <p>（1）支持载荷数据的下行传，将调制后发送至地面站。</p>
-                                  <p>（2）数据传输速率可变，适应不同地面站的接收能力。</p>
-                                  <p>（3）采集数传分系统自身的工程参，通过总线发送至中心计算机。</p>
-                                  <p>（4）中心计算机发生异常时，自主数传分系统的工程遥测参数。</p>
+                                <p>（1）支持载荷数据的下行传，将调制后发送至地面站。</p>
+                                <p>（2）数据传输速率可变，适应不同地面站的接收能力。</p>
+                                <p>（3）采集数传分系统自身的工程参，通过总线发送至中心计算机。</p>
+                                <p>（4）中心计算机发生异常时，自主数传分系统的工程遥测参数。</p>
 
                                 <hr/>
                                 <h3 align="center">数传分系统原理框图</h3>
@@ -206,13 +207,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!--output1 ends-->
 
-            </div><!--output ends-->
-
-
-
-        </div><!-- content ends -->
-        <!-- content starts -->
+        </div>
+        <!-- content ends -->
 
     </div><!--/row-->
 
