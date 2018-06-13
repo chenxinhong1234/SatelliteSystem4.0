@@ -84,7 +84,7 @@
             <br/>
 
             <!--output starts -->
-            <div class="box" style="margin-top: 35%; height:100%">
+            <div class="box" style="margin-top: 30%; height:100%">
                 <div class="box-inner">
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon glyphicon-list"></i> 卫星分系统</h2>
@@ -248,20 +248,20 @@
 <script src="static/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    data=[["Eccentricity",0],
-        ["Height above equator","35786km"],
-        ["Period","23 hours, 56 minutes,4second"],
-        ["Inclination",0],
-        ["Data transmission rate","3Mbit/s"],
-        ["Angular velocity","7.272rad/s"],
-        ["Velocity","3.1km/h"]
+    data=[["离心率",0],
+        ["轨道高度","35786km"],
+        ["周期","23h56m4s"],
+        ["倾角",0],
+        ["数据传输速率","3Mbit/s"],
+        ["角速度","7.272rad/s"],
+        ["线速度","3.1km/h"]
     ];
     // dataTables
     $('#example').dataTable({
         data: data,
         columns: [
-            {title: "Oribt parameter"},
-            {title: "Value"}
+            {title: "卫星运行参数"},
+            {title: "数值"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"

@@ -138,11 +138,29 @@
             </div>
             <!--output2 ends-->
 
+
         </div><!-- content ends -->
    </div><!--/row-->
 
 </div><!--/container-fluid-->
 
+<!--小窗口显示查询内容 -->
+<!--<div id="test-window" class="easyui-window" title="文件查看"
+     style="width: 65%; height: 70%;">
+
+    <table id="file_record_table" title="提交记录" class="easyui-datagrid"
+           style="width: 98%; height: auto" data-options="singleSelect:true">
+        <thead>
+        <tr>
+            <th data-options="field:'id',align:'center',width:150">序号</th>
+            <th data-options="field:'pos',align:'center',width:150">位置</th>
+            <th data-options="field:'state',align:'center',width:160">状态</th>
+            <th data-options="field:'time',align:'center',width:'200'">时间</th>
+            <th data-options="field:'value',align:'center',width:'200'">数值</th>
+        </tr>
+        </thead>
+    </table>
+</div>-->
 
 <div th:replace="layout/layout :: footer"></div>
 
@@ -174,10 +192,10 @@
 <script type="text/javascript" src="../../static/tool/highcharts-zh_CN.js"></script>
 <script>
     /*垃圾类型*/
-    data1=[["失效的载荷与运载火箭末级","可使航天器解体，有致命危害"],
-        ["任务相关碎片","航天表面损伤或使无保护措施部件受损"],
-        ["解体碎片","航天表面损伤或使无保护措施部件受损"],
-        ["失效航天器","可使航天器表面或部件损伤或整体失效"]];
+    data1=[["1","失效的载荷与运载火箭末级","可使航天器解体，有致命危害"],
+        ["2","任务相关碎片","航天表面损伤或使无保护措施部件受损"],
+        ["3","解体碎片","航天表面损伤或使无保护措施部件受损"],
+        ["4","失效航天器","可使航天器表面或部件损伤或整体失效"]];
     data2=[["大碎片","大于10厘米","大于1千克"],
         ["危险碎片","1毫米~10厘米","1毫克~1千克"],
         ["小碎片","小于1毫米","小于1毫克"]];
@@ -186,9 +204,14 @@
     $('#example1').dataTable({
         data: data1,
         columns: [
+            { title: "序号", sortable: false, render: function(data, type, row) { return '<a href="###">' + data + '</a>'; } },
+            { title: "垃圾类型", sortable: false },
+            { title: "垃圾危害", sortable: false }
+            ],
+        /*columns: [
             {title: "垃圾类型"},
             {title: "垃圾危害"}
-        ],
+        ],*/
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
         },
@@ -212,6 +235,22 @@
         scrollCollapse: true,
         scroller: true
     });
+
+    /*var table=$("#example1").DataTable();
+    //给table添加单击事件
+    $('#example1 tbody').on('mouseover', 'tr', //mouseover：鼠标移上字体时。（jQuery 事件 - mouseout() 方法）
+        function() {
+            $(this).toggleClass('selected');
+        });
+    $('#example1 tbody').on('mouseout', 'tr',
+        function() {
+            $(this).toggleClass('selected');
+        });
+    $("#example1").on("click","tr",function(){//给tr或者td添加click事件
+        var data=table.row(this).data();//获取值的对象数据
+        console.log(data);//某一行中要是用的表头值
+        alert(data);
+    });*/
 
     /*评价与建议*/
     suggestdata=[
@@ -345,6 +384,7 @@
     $(function () {
         $("#distinguish").click(PieChart); // 点击【开始判别】，在下面显示饼状图
         $("#suggestion").click(suggest); // 点击【建议】，在下面显示建议
+
     });
 </script>
 </body>

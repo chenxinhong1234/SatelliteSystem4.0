@@ -81,8 +81,9 @@
             </div>
             <!--input2 ends-->
             <br/>
+
             <!--output starts -->
-            <div class="box" style="margin-top: 35%;float: bottom; height:100%">
+            <!--<div class="box" style="margin-top: 35%;float: bottom; height:100%">
                 <div class="box-inner">
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon glyphicon-list"></i> 卫星分系统</h2>
@@ -91,7 +92,7 @@
                                     class="glyphicon glyphicon-chevron-up"></i></a>
                         </div>
                     </div>
-                    <!--<div class="box-content">
+                    <div class="box-content">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home">热控分系统</a></li>
                             <li><a data-toggle="tab" href="#menu1">结构分系统</a></li>
@@ -130,10 +131,11 @@
                                 <hr/>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
 
-            </div><!--output ends-->
+            </div>-->
+            <!--output ends-->
 
 
         </div><!-- content ends -->
@@ -170,18 +172,18 @@
 <script src="static/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    data=[["HLD786","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HL123-LH-410","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"],
-        ["HLA551C-LJ-691","立轴混流式"] ];
+    data=[["卫星发射质量","8.5kg"],
+        ["发射状态包络","366*232*105 mm3"],
+        ["飞行状态包络","887*363*509 mm3"],
+        ["长期功耗","7.75W"],
+        ["最大峰值功耗","40.4W"],
+        ["平均轨道高度","500km"] ];
     // dataTables
     $('#example').dataTable({
         data: data,
         columns: [
-            {title: "卫星类型"},
-            {title: "卫星功能"}
+            {title: "主要参数"},
+            {title: "技术指标"}
         ],
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/1.10.13/i18n/Chinese.json"
